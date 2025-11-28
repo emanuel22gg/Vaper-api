@@ -43,9 +43,7 @@ public partial class Proveedore
     [Unicode(false)]
     public string? Ciudad { get; set; }
 
-    [StringLength(20)]
-    [Unicode(false)]
-    public string? Estado { get; set; }
+    public bool Estado { get; set; }
 
     [InverseProperty("Proveedor")]
     public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();

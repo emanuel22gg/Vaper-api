@@ -27,7 +27,7 @@ namespace Vaper_Api.Controllers
             public string? Telefono { get; set; }
             public string? Direccion { get; set; }
             public string? Ciudad { get; set; }
-            public string? Estado { get; set; }
+            public bool Estado { get; set; }  // Cambiado a bool
         }
 
         // GET: api/Proveedores

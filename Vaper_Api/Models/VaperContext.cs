@@ -21,7 +21,11 @@ public partial class VaperContext : DbContext
 
     public virtual DbSet<Compra> Compras { get; set; }
 
+    public virtual DbSet<Cotizacion> Cotizaciones { get; set; }
+
     public virtual DbSet<DetalleCompra> DetalleCompras { get; set; }
+
+    public virtual DbSet<DetalleCotizacion> DetalleCotizaciones { get; set; }
 
     public virtual DbSet<DetalleDevolucione> DetalleDevoluciones { get; set; }
 
@@ -79,6 +83,13 @@ public partial class VaperContext : DbContext
             entity.HasOne(d => d.Proveedor).WithMany(p => p.Compras).HasConstraintName("FK__Compras__Proveed__160F4887");
         });
 
+        modelBuilder.Entity<Cotizacion>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Cotizaci__3214EC07");
+
+            entity.Property(e => e.Fecha).HasDefaultValueSql("(getdate())");
+        });
+
         modelBuilder.Entity<DetalleCompra>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Detalle___3214EC070BE39BA9");
@@ -86,6 +97,19 @@ public partial class VaperContext : DbContext
             entity.HasOne(d => d.Compra).WithMany(p => p.DetalleCompras).HasConstraintName("FK__Detalle_C__Compr__19DFD96B");
 
             entity.HasOne(d => d.Producto).WithMany(p => p.DetalleCompras).HasConstraintName("FK__Detalle_C__Produ__1AD3FDA4");
+        });
+
+        modelBuilder.Entity<DetalleCotizacion>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Detalle___3214EC07");
+
+            entity.HasOne(d => d.Cotizacion).WithMany(p => p.DetalleCotizaciones)
+                .HasForeignKey(d => d.CotizacionId)
+                .HasConstraintName("FK__Detalle_C__Cotiz");
+
+            entity.HasOne(d => d.Producto).WithMany(p => p.DetalleCotizaciones)
+                .HasForeignKey(d => d.ProductoId)
+                .HasConstraintName("FK__Detalle_C__Produ");
         });
 
         modelBuilder.Entity<DetalleDevolucione>(entity =>
@@ -145,7 +169,8 @@ public partial class VaperContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Proveedo__3214EC0773176097");
 
-            entity.Property(e => e.Estado).HasDefaultValue("Activo");
+            // CAMBIADO: Ahora el valor por defecto es true (activo)
+            entity.Property(e => e.Estado).HasDefaultValue(true);
         });
 
         modelBuilder.Entity<Role>(entity =>
