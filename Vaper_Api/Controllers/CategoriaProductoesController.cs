@@ -21,9 +21,10 @@ namespace Vaper_Api.Controllers
         // DTO para entrada/salida
         public class CategoriaProductoDto
         {
+            public int? Id { get; set; }  // ← AGREGADO
             public string NombreCategoria { get; set; }
             public string? Descripcion { get; set; }
-            public bool? Estado { get; set; } // nullable para evitar errores
+            public bool? Estado { get; set; }
         }
 
         // GET: api/CategoriaProductoes
@@ -34,6 +35,7 @@ namespace Vaper_Api.Controllers
 
             return categorias.Select(c => new CategoriaProductoDto
             {
+                Id = c.Id,  // ← AGREGADO
                 NombreCategoria = c.NombreCategoria,
                 Descripcion = c.Descripcion,
                 Estado = c.Estado
@@ -49,6 +51,7 @@ namespace Vaper_Api.Controllers
 
             return new CategoriaProductoDto
             {
+                Id = c.Id,  // ← AGREGADO
                 NombreCategoria = c.NombreCategoria,
                 Descripcion = c.Descripcion,
                 Estado = c.Estado
@@ -68,6 +71,8 @@ namespace Vaper_Api.Controllers
 
             _context.CategoriaProductos.Add(categoria);
             await _context.SaveChangesAsync();
+
+            dto.Id = categoria.Id;  // ← AGREGADO: Asignar el Id generado al DTO
 
             return CreatedAtAction("GetCategoriaProducto", new { id = categoria.Id }, dto);
         }

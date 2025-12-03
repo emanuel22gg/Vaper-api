@@ -24,11 +24,6 @@ public partial class Producto
 
     public int? IdImagen { get; set; }
 
-    [Column("URLImagen")]
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? Urlimagen { get; set; }
-
     public bool? Estado { get; set; }
 
     [ForeignKey("CategoriaId")]

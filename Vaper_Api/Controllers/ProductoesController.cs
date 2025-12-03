@@ -30,7 +30,6 @@ namespace Vaper_Api.Controllers
             public int? Stock { get; set; }
             public int? CategoriaId { get; set; }
             public int? IdImagen { get; set; }
-            public string? Urlimagen { get; set; }
             public bool? Estado { get; set; }
         }
 
@@ -40,9 +39,7 @@ namespace Vaper_Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductoDto>>> GetProductos()
         {
-            var productos = await _context.Productos
-                .Include(p => p.IdImagenNavigation)
-                .ToListAsync();
+            var productos = await _context.Productos.ToListAsync();
 
             return productos.Select(p => new ProductoDto
             {
@@ -52,7 +49,6 @@ namespace Vaper_Api.Controllers
                 Stock = p.Stock,
                 CategoriaId = p.CategoriaId,
                 IdImagen = p.IdImagen,
-                Urlimagen = p.IdImagenNavigation != null ? p.IdImagenNavigation.Urlimagen : null,
                 Estado = p.Estado
             }).ToList();
         }
@@ -63,9 +59,7 @@ namespace Vaper_Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductoDto>> GetProducto(int id)
         {
-            var p = await _context.Productos
-                .Include(x => x.IdImagenNavigation)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var p = await _context.Productos.FindAsync(id);
 
             if (p == null)
                 return NotFound();
@@ -78,7 +72,6 @@ namespace Vaper_Api.Controllers
                 Stock = p.Stock,
                 CategoriaId = p.CategoriaId,
                 IdImagen = p.IdImagen,
-                Urlimagen = p.IdImagenNavigation != null ? p.IdImagenNavigation.Urlimagen : null,
                 Estado = p.Estado
             };
         }

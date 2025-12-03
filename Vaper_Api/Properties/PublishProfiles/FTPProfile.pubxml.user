@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUDgINpcexk6g6BT3fqsJxAAAAAACAAAAAAAQZgAAAAEAACAAAACoumWs27COYgcco/aZJq3MsmGCQQtflgHcGrI2M6s16QAAAAAOgAAAAAIAACAAAABLF88e9A29MdT7KyPNginlNwDMMiwqNzuWMRFYMZAi4SAAAAB4UOGw6ANVQEDMem+fWSSjHO9EN7TNCtQig7GSO76PhUAAAACdI7VctgQQqShjAdWKpGVyByVM13B7C3pRubeOOXtBjyDeWhkfMWjsERY/pCte6dM8InfHY83aNKiSrRyh/x2j</EncryptedPassword>
-    <History>True|2025-11-27T20:06:39.1060697Z||;False|2025-11-27T14:47:58.6010467-05:00||;False|2025-11-27T14:47:23.3359753-05:00||;False|2025-11-18T15:53:34.4827412-05:00||;False|2025-11-18T15:51:44.1523344-05:00||;</History>
+    <History>True|2025-12-02T21:22:43.6445332Z||;False|2025-12-02T16:08:53.0683918-05:00||;True|2025-11-27T15:06:39.1060697-05:00||;False|2025-11-27T14:47:58.6010467-05:00||;False|2025-11-27T14:47:23.3359753-05:00||;False|2025-11-18T15:53:34.4827412-05:00||;False|2025-11-18T15:51:44.1523344-05:00||;</History>
     <LastFailureDetails />
     <_PublishTargetUrl>ftp://VaperApi.somee.com/www.VaperApi.somee.com</_PublishTargetUrl>
   </PropertyGroup>
@@ -322,7 +322,7 @@
       <publishTime>10/28/2024 21:43:10</publishTime>
     </File>
     <File Include="Microsoft.Extensions.DependencyInjection.Abstractions.dll">
-      <publishTime>10/28/2024 21:41:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.Extensions.DependencyInjection.dll">
       <publishTime>10/28/2024 21:42:08</publishTime>
@@ -352,7 +352,7 @@
       <publishTime>11/30/2023 23:56:56</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.JsonWebTokens.dll">
-      <publishTime>11/30/2023 23:34:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Logging.dll">
       <publishTime>11/30/2023 23:35:22</publishTime>
@@ -388,7 +388,7 @@
       <publishTime>10/30/2024 21:18:06</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll">
-      <publishTime>10/30/2024 21:18:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll">
       <publishTime>10/30/2024 21:18:16</publishTime>
@@ -538,7 +538,7 @@
       <publishTime>08/11/2023 13:56:18</publishTime>
     </File>
     <File Include="runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll">
-      <publishTime>08/27/2024 13:23:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="runtimes/win/lib/net6.0/System.Runtime.Caching.dll">
       <publishTime>10/22/2021 18:52:44</publishTime>
@@ -592,7 +592,7 @@
       <publishTime>10/18/2022 11:15:46</publishTime>
     </File>
     <File Include="System.Composition.Hosting.dll">
-      <publishTime>10/18/2022 11:16:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="System.Composition.Runtime.dll">
       <publishTime>10/18/2022 11:15:46</publishTime>
@@ -679,16 +679,16 @@
       <publishTime>01/29/2022 10:04:12</publishTime>
     </File>
     <File Include="Vaper_Api.deps.json">
-      <publishTime>11/27/2025 14:49:32</publishTime>
+      <publishTime>12/02/2025 16:10:35</publishTime>
     </File>
     <File Include="Vaper_Api.dll">
-      <publishTime>11/27/2025 14:49:30</publishTime>
+      <publishTime>12/02/2025 16:10:32</publishTime>
     </File>
     <File Include="Vaper_Api.exe">
-      <publishTime>11/27/2025 14:49:30</publishTime>
+      <publishTime>12/02/2025 16:10:32</publishTime>
     </File>
     <File Include="Vaper_Api.pdb">
-      <publishTime>11/27/2025 14:49:30</publishTime>
+      <publishTime>12/02/2025 16:10:32</publishTime>
     </File>
     <File Include="Vaper_Api.runtimeconfig.json">
       <publishTime>11/27/2025 14:46:19</publishTime>
@@ -700,7 +700,7 @@
       <publishTime>01/29/2022 10:04:12</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>11/27/2025 14:49:33</publishTime>
+      <publishTime>12/02/2025 16:10:36</publishTime>
     </File>
     <File Include="zh-CN/Humanizer.resources.dll">
       <publishTime>01/29/2022 10:04:12</publishTime>

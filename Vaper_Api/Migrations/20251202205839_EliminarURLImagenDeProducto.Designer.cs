@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vaper_Api.Models;
 
@@ -11,9 +12,11 @@ using Vaper_Api.Models;
 namespace Vaper_Api.Migrations
 {
     [DbContext(typeof(VaperContext))]
-    partial class VaperContextModelSnapshot : ModelSnapshot
+    [Migration("20251202205839_EliminarURLImagenDeProducto")]
+    partial class EliminarURLImagenDeProducto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
