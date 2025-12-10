@@ -162,7 +162,7 @@ public partial class VaperContext : DbContext
 
             entity.HasOne(d => d.Categoria).WithMany(p => p.Productos).HasConstraintName("FK__Productos__Categ__7D439ABD");
 
-            entity.HasOne(d => d.IdImagenNavigation).WithMany(p => p.Productos).HasConstraintName("FK__Productos__IdIma__7E37BEF6");
+            
         });
 
         modelBuilder.Entity<Proveedore>(entity =>

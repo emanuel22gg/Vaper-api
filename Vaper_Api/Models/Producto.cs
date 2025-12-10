@@ -20,16 +20,17 @@ public partial class Producto
 
     public int? Stock { get; set; }
 
+    // ✅ SOLO FK A CATEGORÍA
     public int? CategoriaId { get; set; }
-
-    public int? IdImagen { get; set; }
 
     public bool? Estado { get; set; }
 
+    // ✅ RELACIÓN CON CATEGORÍA
     [ForeignKey("CategoriaId")]
     [InverseProperty("Productos")]
     public virtual CategoriaProducto? Categoria { get; set; }
 
+    // ✅ RELACIONES CON DETALLES
     [InverseProperty("Producto")]
     public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
 
@@ -39,10 +40,8 @@ public partial class Producto
     [InverseProperty("Producto")]
     public virtual ICollection<DetalleCotizacion> DetalleCotizaciones { get; set; } = new List<DetalleCotizacion>();
 
-    [ForeignKey("IdImagen")]
-    [InverseProperty("Productos")]
-    public virtual Imagene? IdImagenNavigation { get; set; }
-
+    // ✅ ÚNICA RELACIÓN CON IMÁGENES (1 PRODUCTO → MUCHAS IMÁGENES)
     [InverseProperty("Producto")]
     public virtual ICollection<Imagene> Imagenes { get; set; } = new List<Imagene>();
+    public int? IdImagen { get; internal set; }
 }

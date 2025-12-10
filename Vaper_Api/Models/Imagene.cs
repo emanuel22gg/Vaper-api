@@ -16,12 +16,15 @@ public partial class Imagene
     [Unicode(false)]
     public string? Urlimagen { get; set; }
 
+    // Clave Foránea a Producto
     public int? ProductoId { get; set; }
 
+    // Propiedad de Navegación de Referencia (Coincide con InverseProperty en Producto)
     [ForeignKey("ProductoId")]
     [InverseProperty("Imagenes")]
     public virtual Producto? Producto { get; set; }
 
-    [InverseProperty("IdImagenNavigation")]
-    public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
+    // *** ELIMINAR ESTO (La colección redundante que causa el error) ***
+    // [InverseProperty("IdImagenNavigation")] 
+    // public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
 }

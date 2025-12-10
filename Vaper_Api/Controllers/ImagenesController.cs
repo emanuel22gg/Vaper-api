@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using Vaper_Api.Models;
 
 namespace Vaper_Api.Controllers
@@ -30,7 +31,7 @@ namespace Vaper_Api.Controllers
         }
 
         // ===========================
-        // ✅ GET
+        // ✅ GET - TODAS LAS IMÁGENES
         // ===========================
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ImageneDto>>> GetImagenes()
@@ -63,9 +64,9 @@ namespace Vaper_Api.Controllers
             };
         }
 
-        // ===========================
-        // ✅ POST
-        // ===========================
+        // =====================================================
+        // ✅ POST NORMAL (CUANDO YA TIENES LA URL)
+        // =====================================================
         [HttpPost]
         public async Task<ActionResult<ImageneDto>> PostImagene(ImageneDto dto)
         {
@@ -81,6 +82,42 @@ namespace Vaper_Api.Controllers
             dto.IdImagen = imagene.IdImagen;
 
             return CreatedAtAction(nameof(GetImagene), new { id = imagene.IdImagen }, dto);
+        }
+
+        // =====================================================
+        // ✅ POST CON IMAGEN REAL (SUBE A CLOUDINARY)
+        // =====================================================
+        [HttpPost("subir")]
+        public async Task<ActionResult<ImageneDto>> PostImageneConImagen(
+            IFormFile imagen,
+            [FromForm] int? productoId,
+            [FromServices] CloudinaryService cloudinaryService)
+        {
+            if (imagen == null)
+                return BadRequest("No se envió ninguna imagen");
+
+            // ✅ SUBIR A CLOUDINARY
+            var url = await cloudinaryService.UploadImageAsync(imagen);
+
+            if (url == null)
+                return BadRequest("Error al subir la imagen");
+
+            // ✅ GUARDAR EN BD
+            var imagene = new Imagene
+            {
+                Urlimagen = url,
+                ProductoId = productoId
+            };
+
+            _context.Imagenes.Add(imagene);
+            await _context.SaveChangesAsync();
+
+            return Ok(new ImageneDto
+            {
+                IdImagen = imagene.IdImagen,
+                Urlimagen = imagene.Urlimagen,
+                ProductoId = imagene.ProductoId
+            });
         }
 
         // ===========================

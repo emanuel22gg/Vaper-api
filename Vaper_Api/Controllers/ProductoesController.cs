@@ -20,7 +20,7 @@ namespace Vaper_Api.Controllers
         }
 
         // ===========================
-        // ✅ DTO INTERNO
+        // ✅ DTO
         // ===========================
         public class ProductoDto
         {
@@ -29,12 +29,13 @@ namespace Vaper_Api.Controllers
             public decimal? Precio { get; set; }
             public int? Stock { get; set; }
             public int? CategoriaId { get; set; }
+            // Propiedad que ahora leeremos directamente del producto
             public int? IdImagen { get; set; }
             public bool? Estado { get; set; }
         }
 
         // ===========================
-        // ✅ GET: api/Productoes
+        // ✅ GET: api/Productoes (LISTA)
         // ===========================
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductoDto>>> GetProductos()
@@ -48,13 +49,16 @@ namespace Vaper_Api.Controllers
                 Precio = p.Precio,
                 Stock = p.Stock,
                 CategoriaId = p.CategoriaId,
+                // [CAMBIO CLAVE AQUI] 
+                // Lee directamente la propiedad IdImagen del producto (entidad)
                 IdImagen = p.IdImagen,
                 Estado = p.Estado
+
             }).ToList();
         }
 
         // ===========================
-        // ✅ GET: api/Productoes/5
+        // ✅ GET: api/Productoes/5 (UN PRODUCTO)
         // ===========================
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductoDto>> GetProducto(int id)
@@ -71,6 +75,8 @@ namespace Vaper_Api.Controllers
                 Precio = p.Precio,
                 Stock = p.Stock,
                 CategoriaId = p.CategoriaId,
+                // [CAMBIO CLAVE AQUI] 
+                // Lee directamente la propiedad IdImagen del producto (entidad)
                 IdImagen = p.IdImagen,
                 Estado = p.Estado
             };
@@ -88,6 +94,7 @@ namespace Vaper_Api.Controllers
                 Precio = dto.Precio,
                 Stock = dto.Stock,
                 CategoriaId = dto.CategoriaId,
+                // Asigna directamente IdImagen
                 IdImagen = dto.IdImagen,
                 Estado = dto.Estado
             };
@@ -101,24 +108,29 @@ namespace Vaper_Api.Controllers
         }
 
         // ===========================
-        // ✅ PUT: api/Productoes/5
+        // ✅ PUT: api/Productoes/5 (ACTUALIZACIÓN)
+        // ESTE MÉTODO YA ERA CORRECTO
         // ===========================
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProducto(int id, ProductoDto dto)
         {
+            // 1. Obtener la entidad para que EF Core la rastree
             var producto = await _context.Productos.FindAsync(id);
             if (producto == null)
                 return NotFound();
 
+            // 2. Mapear/Actualizar propiedades
             producto.NombreProducto = dto.NombreProducto;
             producto.Precio = dto.Precio;
             producto.Stock = dto.Stock;
             producto.CategoriaId = dto.CategoriaId;
-            producto.IdImagen = dto.IdImagen;
+            producto.IdImagen = dto.IdImagen; // Se mantiene la asignación directa
             producto.Estado = dto.Estado;
 
+            // 3. Persistir los cambios
             await _context.SaveChangesAsync();
-            return NoContent();
+
+            return NoContent(); // Retorna 204
         }
 
         // ===========================
