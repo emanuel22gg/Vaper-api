@@ -30,6 +30,7 @@ namespace Vaper_Api.Controllers
             public int? Stock { get; set; }
             public int? CategoriaId { get; set; }
             // Propiedad que ahora leeremos directamente del producto
+            public string? Descripcion { get; set; }
             public int? IdImagen { get; set; }
             public bool? Estado { get; set; }
         }
@@ -49,6 +50,7 @@ namespace Vaper_Api.Controllers
                 Precio = p.Precio,
                 Stock = p.Stock,
                 CategoriaId = p.CategoriaId,
+                Descripcion = p.Descripcion,
                 // [CAMBIO CLAVE AQUI] 
                 // Lee directamente la propiedad IdImagen del producto (entidad)
                 IdImagen = p.IdImagen,
@@ -75,6 +77,8 @@ namespace Vaper_Api.Controllers
                 Precio = p.Precio,
                 Stock = p.Stock,
                 CategoriaId = p.CategoriaId,
+                Descripcion = p.Descripcion,
+
                 // [CAMBIO CLAVE AQUI] 
                 // Lee directamente la propiedad IdImagen del producto (entidad)
                 IdImagen = p.IdImagen,
@@ -94,6 +98,8 @@ namespace Vaper_Api.Controllers
                 Precio = dto.Precio,
                 Stock = dto.Stock,
                 CategoriaId = dto.CategoriaId,
+                Descripcion = dto.Descripcion,
+
                 // Asigna directamente IdImagen
                 IdImagen = dto.IdImagen,
                 Estado = dto.Estado
@@ -124,6 +130,7 @@ namespace Vaper_Api.Controllers
             producto.Precio = dto.Precio;
             producto.Stock = dto.Stock;
             producto.CategoriaId = dto.CategoriaId;
+            producto.Descripcion = dto.Descripcion;
             producto.IdImagen = dto.IdImagen; // Se mantiene la asignación directa
             producto.Estado = dto.Estado;
 

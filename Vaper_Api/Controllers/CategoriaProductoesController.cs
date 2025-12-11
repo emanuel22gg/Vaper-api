@@ -25,6 +25,8 @@ namespace Vaper_Api.Controllers
             public string NombreCategoria { get; set; }
             public string? Descripcion { get; set; }
             public bool? Estado { get; set; }
+
+            public int? IdImagen { get; set; }  // ← AGREGADO
         }
 
         // GET: api/CategoriaProductoes
@@ -38,7 +40,9 @@ namespace Vaper_Api.Controllers
                 Id = c.Id,  // ← AGREGADO
                 NombreCategoria = c.NombreCategoria,
                 Descripcion = c.Descripcion,
-                Estado = c.Estado
+                Estado = c.Estado,
+                IdImagen = c.IdImagen
+
             }).ToList();
         }
 
@@ -54,7 +58,8 @@ namespace Vaper_Api.Controllers
                 Id = c.Id,  // ← AGREGADO
                 NombreCategoria = c.NombreCategoria,
                 Descripcion = c.Descripcion,
-                Estado = c.Estado
+                Estado = c.Estado,
+                IdImagen = c.IdImagen
             };
         }
 
@@ -66,7 +71,8 @@ namespace Vaper_Api.Controllers
             {
                 NombreCategoria = dto.NombreCategoria,
                 Descripcion = dto.Descripcion,
-                Estado = dto.Estado
+                Estado = dto.Estado,
+                IdImagen= dto.IdImagen
             };
 
             _context.CategoriaProductos.Add(categoria);
@@ -87,6 +93,7 @@ namespace Vaper_Api.Controllers
             categoria.NombreCategoria = dto.NombreCategoria;
             categoria.Descripcion = dto.Descripcion;
             categoria.Estado = dto.Estado;
+            categoria.IdImagen = dto.IdImagen;
 
             await _context.SaveChangesAsync();
             return NoContent();

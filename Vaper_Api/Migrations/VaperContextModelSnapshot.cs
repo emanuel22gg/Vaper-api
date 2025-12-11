@@ -74,6 +74,9 @@ namespace Vaper_Api.Migrations
                     b.Property<bool?>("Estado")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("IdImagen")
+                        .HasColumnType("int");
+
                     b.Property<string>("NombreCategoria")
                         .HasMaxLength(100)
                         .IsUnicode(false)
@@ -81,6 +84,8 @@ namespace Vaper_Api.Migrations
 
                     b.HasKey("Id")
                         .HasName("PK__Categori__3214EC079C3563B3");
+
+                    b.HasIndex("IdImagen");
 
                     b.ToTable("Categoria_Productos");
                 });
@@ -345,7 +350,7 @@ namespace Vaper_Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdImagen"));
 
-                    b.Property<int>("ProductoId")
+                    b.Property<int?>("ProductoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Urlimagen")
@@ -392,8 +397,14 @@ namespace Vaper_Api.Migrations
                     b.Property<int?>("CategoriaId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("text");
+
                     b.Property<bool?>("Estado")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("IdImagen")
+                        .HasColumnType("int");
 
                     b.Property<string>("NombreProducto")
                         .HasMaxLength(100)
@@ -669,6 +680,15 @@ namespace Vaper_Api.Migrations
                     b.Navigation("VentaPedido");
                 });
 
+            modelBuilder.Entity("Vaper_Api.Models.CategoriaProducto", b =>
+                {
+                    b.HasOne("Vaper_Api.Models.Imagene", "Imagen")
+                        .WithMany("Categorias")
+                        .HasForeignKey("IdImagen");
+
+                    b.Navigation("Imagen");
+                });
+
             modelBuilder.Entity("Vaper_Api.Models.Compra", b =>
                 {
                     b.HasOne("Vaper_Api.Models.Estado", "EstadoNavigation")
@@ -770,8 +790,6 @@ namespace Vaper_Api.Migrations
                     b.HasOne("Vaper_Api.Models.Producto", "Producto")
                         .WithMany("Imagenes")
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK__Imagenes__Produc__7F2BE32F");
 
                     b.Navigation("Producto");
@@ -861,6 +879,11 @@ namespace Vaper_Api.Migrations
                     b.Navigation("Compras");
 
                     b.Navigation("VentaPedidos");
+                });
+
+            modelBuilder.Entity("Vaper_Api.Models.Imagene", b =>
+                {
+                    b.Navigation("Categorias");
                 });
 
             modelBuilder.Entity("Vaper_Api.Models.Permiso", b =>

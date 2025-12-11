@@ -21,6 +21,14 @@ public partial class CategoriaProducto
 
     public bool? Estado { get; set; }
 
+    // Nuevo campo FK hacia Imagene
+    public int? IdImagen { get; set; }
+
+    // Relación hacia Imagene
+    [ForeignKey("IdImagen")]
+    [InverseProperty("Categorias")]   // Esto se creará ahora en Imagene
+    public virtual Imagene? Imagen { get; set; }
+
     [InverseProperty("Categoria")]
     public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
 }

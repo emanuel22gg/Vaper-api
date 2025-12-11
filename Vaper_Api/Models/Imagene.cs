@@ -24,7 +24,8 @@ public partial class Imagene
     [InverseProperty("Imagenes")]
     public virtual Producto? Producto { get; set; }
 
-    // *** ELIMINAR ESTO (La colección redundante que causa el error) ***
-    // [InverseProperty("IdImagenNavigation")] 
-    // public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
+    // Nueva Propiedad de Navegación para CategoríaProducto
+    [InverseProperty("Imagen")]
+    public virtual ICollection<CategoriaProducto> Categorias { get; set; } = new List<CategoriaProducto>();
+
 }

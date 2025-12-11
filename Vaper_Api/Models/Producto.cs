@@ -23,6 +23,9 @@ public partial class Producto
     // ✅ SOLO FK A CATEGORÍA
     public int? CategoriaId { get; set; }
 
+    [Column(TypeName = "text")]
+    public string? Descripcion { get; set; }
+
     public bool? Estado { get; set; }
 
     // ✅ RELACIÓN CON CATEGORÍA

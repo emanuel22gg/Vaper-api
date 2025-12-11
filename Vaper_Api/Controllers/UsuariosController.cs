@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vaper_Api.Models;
+using Vaper_Api.Services;
 
 namespace Vaper_Api.Controllers
 {
@@ -13,10 +14,15 @@ namespace Vaper_Api.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly VaperContext _context;
+        private readonly EmailService _emailService;
+
+        // Diccionario temporal para códigos (en producción usa Redis o BD)
+        private static Dictionary<string, (string Codigo, DateTime Expiracion)> _codigosRecuperacion = new();
 
         public UsuariosController(VaperContext context)
         {
             _context = context;
+            _emailService = new EmailService();
         }
 
         // ===========================
@@ -35,7 +41,7 @@ namespace Vaper_Api.Controllers
             public string? Ciudad { get; set; }
             public string? Direccion { get; set; }
             public string? Barrio { get; set; }
-            public DateOnly? FechaNacimiento { get; set; }   // ✅ CORREGIDO
+            public DateOnly? FechaNacimiento { get; set; }
             public bool? EstadoUsuario { get; set; }
             public int? RolId { get; set; }
         }
@@ -114,7 +120,7 @@ namespace Vaper_Api.Controllers
                 Ciudad = dto.Ciudad,
                 Direccion = dto.Direccion,
                 Barrio = dto.Barrio,
-                FechaNacimiento = dto.FechaNacimiento, // ✅ YA ES DateOnly
+                FechaNacimiento = dto.FechaNacimiento,
                 EstadoUsuario = dto.EstadoUsuario,
                 RolId = dto.RolId
             };
@@ -147,7 +153,7 @@ namespace Vaper_Api.Controllers
             usuario.Ciudad = dto.Ciudad;
             usuario.Direccion = dto.Direccion;
             usuario.Barrio = dto.Barrio;
-            usuario.FechaNacimiento = dto.FechaNacimiento; // ✅ YA ES DateOnly
+            usuario.FechaNacimiento = dto.FechaNacimiento;
             usuario.EstadoUsuario = dto.EstadoUsuario;
             usuario.RolId = dto.RolId;
 
@@ -169,6 +175,99 @@ namespace Vaper_Api.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // ===========================
+        // ✅ POST: api/Usuarios/ForgotPassword
+        // ===========================
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+        {
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Correo == request.Correo);
+
+            if (usuario == null)
+            {
+                // No revelamos si el email existe por seguridad
+                return Ok(new { message = "Si el correo existe, recibirás un código de recuperación" });
+            }
+
+            // Generar código aleatorio de 6 dígitos
+            var codigo = new Random().Next(100000, 999999).ToString();
+
+            // Guardar código con expiración de 15 minutos
+            _codigosRecuperacion[request.Correo] = (codigo, DateTime.Now.AddMinutes(15));
+
+            // Enviar email
+            var enviado = await _emailService.EnviarEmailRecuperacion(request.Correo, codigo);
+
+            if (!enviado)
+            {
+                return StatusCode(500, new { message = "Error al enviar el email" });
+            }
+
+            return Ok(new { message = "Si el correo existe, recibirás un código de recuperación" });
+        }
+
+        // ===========================
+        // ✅ POST: api/Usuarios/ResetPassword
+        // ===========================
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        {
+            // Verificar si existe código para este email
+            if (!_codigosRecuperacion.ContainsKey(request.Correo))
+            {
+                return BadRequest(new { message = "Código inválido o expirado" });
+            }
+
+            var (codigoGuardado, expiracion) = _codigosRecuperacion[request.Correo];
+
+            // Verificar si el código expiró
+            if (DateTime.Now > expiracion)
+            {
+                _codigosRecuperacion.Remove(request.Correo);
+                return BadRequest(new { message = "El código ha expirado" });
+            }
+
+            // Verificar si el código es correcto
+            if (codigoGuardado != request.Codigo)
+            {
+                return BadRequest(new { message = "Código incorrecto" });
+            }
+
+            // Buscar usuario
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Correo == request.Correo);
+
+            if (usuario == null)
+            {
+                return NotFound(new { message = "Usuario no encontrado" });
+            }
+
+            // Actualizar contraseña
+            usuario.Contraseña = request.NuevaContraseña;
+            await _context.SaveChangesAsync();
+
+            // Eliminar código usado
+            _codigosRecuperacion.Remove(request.Correo);
+
+            return Ok(new { message = "Contraseña actualizada exitosamente" });
+        }
+
+        // ===========================
+        // ✅ DTOs para recuperación
+        // ===========================
+        public class ForgotPasswordRequest
+        {
+            public string Correo { get; set; } = string.Empty;
+        }
+
+        public class ResetPasswordRequest
+        {
+            public string Correo { get; set; } = string.Empty;
+            public string Codigo { get; set; } = string.Empty;
+            public string NuevaContraseña { get; set; } = string.Empty;
         }
     }
 }
