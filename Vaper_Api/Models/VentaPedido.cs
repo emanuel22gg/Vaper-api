@@ -38,6 +38,11 @@ public partial class VentaPedido
     [Unicode(false)]
     public string? DepartamentoEntrega { get; set; }
 
+    [StringLength(100)]
+    [Unicode(false)]
+    [RegularExpression(@"^[\p{L}\s]*$", ErrorMessage = "Las observaciones solo pueden contener letras y espacios.")]
+    public string? Observaciones { get; set; }
+
     [Column(TypeName = "decimal(10, 2)")]
     public decimal? Subtotal { get; set; }
 

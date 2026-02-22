@@ -28,6 +28,11 @@ public partial class Producto
 
     public bool? Estado { get; set; }
 
+    // Nuevo campo: Puffs (número, máximo 5 dígitos)
+    [Range(0, 99999)]
+    [Column(TypeName = "int")]
+    public int? Puffs { get; set; }
+
     // ✅ RELACIÓN CON CATEGORÍA
     [ForeignKey("CategoriaId")]
     [InverseProperty("Productos")]
