@@ -29,7 +29,7 @@ public partial class Compra
 
     public int? Estado { get; set; }
 
-    [StringLength(100)]
+    [StringLength(500)]
     [Unicode(false)]
     public string? Observaciones { get; set; }
 

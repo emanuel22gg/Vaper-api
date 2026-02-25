@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vaper_Api.Models;
 
@@ -11,9 +12,11 @@ using Vaper_Api.Models;
 namespace Vaper_Api.Migrations
 {
     [DbContext(typeof(VaperContext))]
-    partial class VaperContextModelSnapshot : ModelSnapshot
+    [Migration("20260225030240_UpdateCompraObservationsLength")]
+    partial class UpdateCompraObservationsLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -691,11 +694,6 @@ namespace Vaper_Api.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(15)");
 
-                    b.Property<string>("TipoCliente")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
-
                     b.Property<string>("TipoDocumento")
                         .HasMaxLength(10)
                         .IsUnicode(false)
@@ -752,9 +750,9 @@ namespace Vaper_Api.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("Observaciones")
-                        .HasMaxLength(200)
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<decimal?>("Subtotal")
                         .HasColumnType("decimal(10, 2)");

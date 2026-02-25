@@ -38,7 +38,7 @@ public partial class VentaPedido
     [Unicode(false)]
     public string? DepartamentoEntrega { get; set; }
 
-    [StringLength(100)]
+    [StringLength(200)]
     [Unicode(false)]
     [RegularExpression(@"^[\p{L}\s]*$", ErrorMessage = "Las observaciones solo pueden contener letras y espacios.")]
     public string? Observaciones { get; set; }

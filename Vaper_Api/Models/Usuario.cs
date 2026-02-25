@@ -53,6 +53,10 @@ public partial class Usuario
 
     public DateOnly? FechaNacimiento { get; set; }
 
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? TipoCliente { get; set; }
+
     public bool? EstadoUsuario { get; set; }
 
     public int? RolId { get; set; }

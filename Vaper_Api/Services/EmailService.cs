@@ -6,12 +6,12 @@ namespace Vaper_Api.Services
 {
     public class EmailService
     {
-        private readonly string _smtpServer = "smtp.gmail.com"; // O el que uses
+        private readonly string _smtpServer = "smtp.gmail.com";
         private readonly int _smtpPort = 587;
-        private readonly string _fromEmail = "vaperone4@gmail.com"; // Cambia esto
-        private readonly string _fromPassword = "hadx qbyz guhn gdnk"; // Contraseña de aplicación
+        private readonly string _fromEmail = "vaperone4@gmail.com";
+        private readonly string _fromPassword = "kihz qguo ctkk wsyi";
 
-        public async Task<bool> EnviarEmailRecuperacion(string emailDestino, string codigo)
+        public async Task<(bool Exitoso, string? Error)> EnviarEmailRecuperacion(string emailDestino, string codigo)
         {
             try
             {
@@ -38,12 +38,12 @@ namespace Vaper_Api.Services
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
 
-                return true;
+                return (true, null);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al enviar email: {ex.Message}");
-                return false;
+                return (false, ex.Message);
             }
         }
     }

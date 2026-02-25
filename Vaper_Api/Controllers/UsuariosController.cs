@@ -42,6 +42,7 @@ namespace Vaper_Api.Controllers
             public string? Direccion { get; set; }
             public string? Barrio { get; set; }
             public DateOnly? FechaNacimiento { get; set; }
+            public string? TipoCliente { get; set; }
             public bool? EstadoUsuario { get; set; }
             public int? RolId { get; set; }
         }
@@ -68,6 +69,7 @@ namespace Vaper_Api.Controllers
                 Direccion = u.Direccion,
                 Barrio = u.Barrio,
                 FechaNacimiento = u.FechaNacimiento,
+                TipoCliente = u.TipoCliente,
                 EstadoUsuario = u.EstadoUsuario,
                 RolId = u.RolId
             }).ToList();
@@ -97,6 +99,7 @@ namespace Vaper_Api.Controllers
                 Direccion = u.Direccion,
                 Barrio = u.Barrio,
                 FechaNacimiento = u.FechaNacimiento,
+                TipoCliente = u.TipoCliente,
                 EstadoUsuario = u.EstadoUsuario,
                 RolId = u.RolId
             };
@@ -121,6 +124,7 @@ namespace Vaper_Api.Controllers
                 Direccion = dto.Direccion,
                 Barrio = dto.Barrio,
                 FechaNacimiento = dto.FechaNacimiento,
+                TipoCliente = dto.TipoCliente,
                 EstadoUsuario = dto.EstadoUsuario,
                 RolId = dto.RolId
             };
@@ -154,6 +158,7 @@ namespace Vaper_Api.Controllers
             usuario.Direccion = dto.Direccion;
             usuario.Barrio = dto.Barrio;
             usuario.FechaNacimiento = dto.FechaNacimiento;
+            usuario.TipoCliente = dto.TipoCliente;
             usuario.EstadoUsuario = dto.EstadoUsuario;
             usuario.RolId = dto.RolId;
 
@@ -199,11 +204,11 @@ namespace Vaper_Api.Controllers
             _codigosRecuperacion[request.Correo] = (codigo, DateTime.Now.AddMinutes(15));
 
             // Enviar email
-            var enviado = await _emailService.EnviarEmailRecuperacion(request.Correo, codigo);
+            var (enviado, errorEmail) = await _emailService.EnviarEmailRecuperacion(request.Correo, codigo);
 
             if (!enviado)
             {
-                return StatusCode(500, new { message = "Error al enviar el email" });
+                return StatusCode(500, new { message = "Error al enviar el email", detalle = errorEmail });
             }
 
             return Ok(new { message = "Si el correo existe, recibirás un código de recuperación" });
