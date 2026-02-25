@@ -94,9 +94,9 @@ public partial class VaperContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Detalle___3214EC070BE39BA9");
 
-            entity.HasOne(d => d.Compra).WithMany(p => p.DetalleCompras).HasConstraintName("FK__Detalle_C__Compr__19DFD96B");
+            entity.HasOne(d => d.Compra).WithMany(p => p.DetalleCompras).HasForeignKey(d => d.CompraId).HasConstraintName("FK__Detalle_C__Compr__19DFD96B");
 
-            entity.HasOne(d => d.Producto).WithMany(p => p.DetalleCompras).HasConstraintName("FK__Detalle_C__Produ__1AD3FDA4");
+            entity.HasOne(d => d.Producto).WithMany(p => p.DetalleCompras).HasForeignKey(d => d.ProductoId).HasConstraintName("FK__Detalle_C__Produ__1AD3FDA4");
         });
 
         modelBuilder.Entity<DetalleCotizacion>(entity =>

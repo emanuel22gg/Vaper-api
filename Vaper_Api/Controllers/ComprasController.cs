@@ -33,6 +33,15 @@ namespace Vaper_Api.Controllers
             public int? Estado { get; set; }
             public string? Observaciones { get; set; }
             public DateTime? FechaCreacion { get; set; }
+            public List<DetalleCompraDto> DetalleCompras { get; set; } = new();
+        }
+
+        public class DetalleCompraDto
+        {
+            public int ProductoId { get; set; }
+            public int Cantidad { get; set; }
+            public decimal PrecioUnitario { get; set; }
+            public decimal Subtotal { get; set; }
         }
 
         // =========================
@@ -41,7 +50,9 @@ namespace Vaper_Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CompraDto>>> GetCompras()
         {
-            var compras = await _context.Compras.ToListAsync();
+            var compras = await _context.Compras
+                .Include(c => c.DetalleCompras)
+                .ToListAsync();
 
             return compras.Select(c => new CompraDto
             {
@@ -53,7 +64,14 @@ namespace Vaper_Api.Controllers
                 Total = c.Total,
                 Estado = c.Estado,
                 Observaciones = c.Observaciones,
-                FechaCreacion = c.FechaCreacion
+                FechaCreacion = c.FechaCreacion,
+                DetalleCompras = c.DetalleCompras.Select(d => new DetalleCompraDto
+                {
+                    ProductoId = d.ProductoId ?? 0,
+                    Cantidad = d.Cantidad ?? 0,
+                    PrecioUnitario = d.PrecioUnitario ?? 0,
+                    Subtotal = d.Subtotal ?? 0
+                }).ToList()
             }).ToList();
         }
 
@@ -63,7 +81,10 @@ namespace Vaper_Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CompraDto>> GetCompra(int id)
         {
-            var c = await _context.Compras.FindAsync(id);
+            var c = await _context.Compras
+                .Include(c => c.DetalleCompras)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
             if (c == null) return NotFound();
 
             return new CompraDto
@@ -76,13 +97,18 @@ namespace Vaper_Api.Controllers
                 Total = c.Total,
                 Estado = c.Estado,
                 Observaciones = c.Observaciones,
-                FechaCreacion = c.FechaCreacion
+                FechaCreacion = c.FechaCreacion,
+                DetalleCompras = c.DetalleCompras.Select(d => new DetalleCompraDto
+                {
+                    ProductoId = d.ProductoId ?? 0,
+                    Cantidad = d.Cantidad ?? 0,
+                    PrecioUnitario = d.PrecioUnitario ?? 0,
+                    Subtotal = d.Subtotal ?? 0
+                }).ToList()
             };
         }
 
-        // =========================
-        // POST: api/Compras
-        // =========================
+        // post
         [HttpPost]
         public async Task<ActionResult<CompraDto>> PostCompra(CompraDto dto)
         {
@@ -95,15 +121,49 @@ namespace Vaper_Api.Controllers
                 Total = dto.Total,
                 Estado = dto.Estado,
                 Observaciones = dto.Observaciones,
-                FechaCreacion = dto.FechaCreacion
+                FechaCreacion = dto.FechaCreacion ?? DateTime.Now
             };
 
+            // Mapeo de detalles - Aseguramos que la lista existe
+            if (dto.DetalleCompras != null)
+            {
+                foreach (var detalleDto in dto.DetalleCompras)
+                {
+                    compra.DetalleCompras.Add(new DetalleCompra
+                    {
+                        ProductoId = detalleDto.ProductoId,
+                        Cantidad = detalleDto.Cantidad,
+                        PrecioUnitario = detalleDto.PrecioUnitario,
+                        Subtotal = detalleDto.Subtotal
+                    });
+                }
+            }
+            
             _context.Compras.Add(compra);
             await _context.SaveChangesAsync();
 
-            dto.Id = compra.Id; // ✅ Devuelve el ID generado
+            // Mapeamos de vuelta al DTO para incluir lo que realmente se guardó
+            var responseDto = new CompraDto
+            {
+                Id = compra.Id,
+                NumeroCompra = compra.NumeroCompra,
+                FechaCompra = compra.FechaCompra,
+                ProveedorId = compra.ProveedorId,
+                Subtotal = compra.Subtotal,
+                Total = compra.Total,
+                Estado = compra.Estado,
+                Observaciones = compra.Observaciones,
+                FechaCreacion = compra.FechaCreacion,
+                DetalleCompras = compra.DetalleCompras.Select(d => new DetalleCompraDto
+                {
+                    ProductoId = d.ProductoId ?? 0,
+                    Cantidad = d.Cantidad ?? 0,
+                    PrecioUnitario = d.PrecioUnitario ?? 0,
+                    Subtotal = d.Subtotal ?? 0
+                }).ToList()
+            };
 
-            return CreatedAtAction("GetCompra", new { id = compra.Id }, dto);
+            return CreatedAtAction("GetCompra", new { id = compra.Id }, responseDto);
         }
 
         // =========================

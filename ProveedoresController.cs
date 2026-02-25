@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+Vaper_Api\Controllers\ProveedoresController.cs
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vaper_Api.Models;
 using System.Text.Json;
@@ -47,7 +48,7 @@ namespace Vaper_Api.Controllers
             public ContactoAdicionalDto? ContactoAdicional { get; set; }
             public string? Observaciones { get; set; }
 
-            // Campos existentes
+            // Campos legacy existentes
             public string? NombreCompletoORazonSocial { get; set; }
             public string? TipoDocumento { get; set; }
             public string? NumeroDocumento { get; set; }
@@ -57,12 +58,6 @@ namespace Vaper_Api.Controllers
             public string? Direccion { get; set; }
             public string? Ciudad { get; set; }
             public bool Estado { get; set; }
-
-            // Campos adicionales del modelo actual
-            public string? MetodoPagoPreferido { get; set; }
-            public double? Latitud { get; set; }
-            public double? Longitud { get; set; }
-            public string? InformacionAdicional { get; set; }
         }
 
         // GET: api/Proveedores
@@ -101,12 +96,7 @@ namespace Vaper_Api.Controllers
                 Telefono = p.Telefono,
                 Direccion = p.Direccion,
                 Ciudad = p.Ciudad,
-                Estado = p.Estado,
-
-                MetodoPagoPreferido = p.MetodoPagoPreferido,
-                Latitud = p.Latitud,
-                Longitud = p.Longitud,
-                InformacionAdicional = p.InformacionAdicional
+                Estado = p.Estado
             }).ToList();
         }
 
@@ -147,12 +137,7 @@ namespace Vaper_Api.Controllers
                 Telefono = p.Telefono,
                 Direccion = p.Direccion,
                 Ciudad = p.Ciudad,
-                Estado = p.Estado,
-
-                MetodoPagoPreferido = p.MetodoPagoPreferido,
-                Latitud = p.Latitud,
-                Longitud = p.Longitud,
-                InformacionAdicional = p.InformacionAdicional
+                Estado = p.Estado
             };
         }
 
@@ -189,12 +174,7 @@ namespace Vaper_Api.Controllers
                 Telefono = dto.Telefono,
                 Direccion = dto.Direccion,
                 Ciudad = dto.Ciudad,
-                Estado = dto.Estado,
-
-                MetodoPagoPreferido = dto.MetodoPagoPreferido,
-                Latitud = dto.Latitud,
-                Longitud = dto.Longitud,
-                InformacionAdicional = dto.InformacionAdicional
+                Estado = dto.Estado
             };
 
             _context.Proveedores.Add(proveedor);
@@ -240,11 +220,6 @@ namespace Vaper_Api.Controllers
             proveedor.Direccion = dto.Direccion;
             proveedor.Ciudad = dto.Ciudad;
             proveedor.Estado = dto.Estado;
-
-            proveedor.MetodoPagoPreferido = dto.MetodoPagoPreferido;
-            proveedor.Latitud = dto.Latitud;
-            proveedor.Longitud = dto.Longitud;
-            proveedor.InformacionAdicional = dto.InformacionAdicional;
 
             await _context.SaveChangesAsync();
             return NoContent();

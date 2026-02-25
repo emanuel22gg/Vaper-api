@@ -1,0 +1,29 @@
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Models\VaperContext.cs(55,10): warning CS1030: #advertencia: 'To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.' [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(1,10): error CS1001: Se esperaba un identificador [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(1,10): error CS1056: Carácter '\' inesperado [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(1,17): error CS1056: Carácter '\' inesperado [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(1,31): error CS1002: Se esperaba ; [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(2,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(3,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(4,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(5,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(6,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+
+ERROR al compilar.
+
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Models\VaperContext.cs(55,10): warning CS1030: #advertencia: 'To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.' [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(1,10): error CS1001: Se esperaba un identificador [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(1,10): error CS1056: Carácter '\' inesperado [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(1,17): error CS1056: Carácter '\' inesperado [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(1,31): error CS1002: Se esperaba ; [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(2,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(3,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(4,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(5,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Proveedore.cs(6,1): error CS1529: Una cláusula using debe preceder al resto de elementos definidos en el espacio de nombres, excepto las declaraciones de alias externos [C:\Users\USER\source\repos\Vaper-api\Vaper_Api\Vaper_Api.csproj]
+    1 Advertencia(s)
+    9 Errores
+
+Tiempo transcurrido 00:00:02.97

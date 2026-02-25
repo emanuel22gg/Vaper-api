@@ -436,10 +436,38 @@ namespace Vaper_Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Apellidos")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Banco")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Cedula")
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Celular")
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
                     b.Property<string>("Ciudad")
                         .HasMaxLength(100)
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("ContactoAdicional")
+                        .HasColumnType("text");
 
                     b.Property<string>("Direccion")
                         .HasColumnType("text");
@@ -454,16 +482,64 @@ namespace Vaper_Api.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
+                    b.Property<DateTime?>("FechaRegistro")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("InformacionAdicional")
+                        .HasColumnType("text");
+
+                    b.Property<double?>("Latitud")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Longitud")
+                        .HasColumnType("float");
+
+                    b.Property<string>("MetodoPagoPreferido")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Nit")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
                     b.Property<string>("NombreCompletoORazonSocial")
                         .HasMaxLength(100)
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("NombreCompleto_o_RazonSocial");
 
+                    b.Property<string>("Nombres")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("NumeroCuenta")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
                     b.Property<string>("NumeroDocumento")
                         .HasMaxLength(15)
                         .IsUnicode(false)
                         .HasColumnType("varchar(15)");
+
+                    b.Property<string>("Observaciones")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Pais")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Productos")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RazonSocial")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("RepresentanteLegal")
                         .HasMaxLength(30)
@@ -475,10 +551,26 @@ namespace Vaper_Api.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(20)");
 
+                    b.Property<string>("TipoCuenta")
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
                     b.Property<string>("TipoDocumento")
                         .HasMaxLength(20)
                         .IsUnicode(false)
                         .HasColumnType("varchar(20)");
+
+                    b.Property<string>("TipoPersona")
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<decimal?>("TotalCompras")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime?>("UltimaCompra")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id")
                         .HasName("PK__Proveedo__3214EC0773176097");
