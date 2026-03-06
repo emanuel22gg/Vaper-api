@@ -47,9 +47,7 @@ public partial class VentaPedido
     [Unicode(false)]
     public string? TipoVenta { get; set; }
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? PlazoAbonos { get; set; }
+    public int? PlazoAbonos { get; set; }
 
     [Column(TypeName = "decimal(10, 2)")]
     public decimal? Subtotal { get; set; }

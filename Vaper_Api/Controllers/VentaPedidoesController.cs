@@ -35,6 +35,7 @@ namespace Vaper_Api.Controllers
             public string? DepartamentoEntrega { get; set; }
             public string? Observaciones { get; set; }
             public string? TipoVenta { get; set; }
+            public int? PlazoAbonos { get; set; }
             public decimal? Subtotal { get; set; }
             public decimal? Envio { get; set; }
             public decimal? Total { get; set; }
@@ -61,6 +62,7 @@ namespace Vaper_Api.Controllers
                 DepartamentoEntrega = v.DepartamentoEntrega,
                 Observaciones = v.Observaciones,
                 TipoVenta = v.TipoVenta,
+                PlazoAbonos = v.PlazoAbonos,
                 Subtotal = v.Subtotal,
                 Envio = v.Envio,
                 Total = v.Total
@@ -90,6 +92,7 @@ namespace Vaper_Api.Controllers
                 DepartamentoEntrega = v.DepartamentoEntrega,
                 Observaciones = v.Observaciones,
                 TipoVenta = v.TipoVenta,
+                PlazoAbonos = v.PlazoAbonos,
                 Subtotal = v.Subtotal,
                 Envio = v.Envio,
                 Total = v.Total
@@ -114,6 +117,7 @@ namespace Vaper_Api.Controllers
                 DepartamentoEntrega = dto.DepartamentoEntrega,
                 Observaciones = dto.Observaciones,
                 TipoVenta = dto.TipoVenta,
+                PlazoAbonos = dto.PlazoAbonos,
                 Subtotal = dto.Subtotal,
                 Envio = dto.Envio,
                 Total = dto.Total
@@ -147,6 +151,7 @@ namespace Vaper_Api.Controllers
             venta.DepartamentoEntrega = dto.DepartamentoEntrega;
             venta.Observaciones = dto.Observaciones;
             venta.TipoVenta = dto.TipoVenta;
+            venta.PlazoAbonos = dto.PlazoAbonos;
             venta.Subtotal = dto.Subtotal;
             venta.Envio = dto.Envio;
             venta.Total = dto.Total;

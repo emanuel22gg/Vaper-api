@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUDgINpcexk6g6BT3fqsJxAAAAAACAAAAAAAQZgAAAAEAACAAAACoumWs27COYgcco/aZJq3MsmGCQQtflgHcGrI2M6s16QAAAAAOgAAAAAIAACAAAABLF88e9A29MdT7KyPNginlNwDMMiwqNzuWMRFYMZAi4SAAAAB4UOGw6ANVQEDMem+fWSSjHO9EN7TNCtQig7GSO76PhUAAAACdI7VctgQQqShjAdWKpGVyByVM13B7C3pRubeOOXtBjyDeWhkfMWjsERY/pCte6dM8InfHY83aNKiSrRyh/x2j</EncryptedPassword>
-    <History>True|2026-03-02T20:01:39.7971627Z||;True|2026-02-25T16:03:13.0266330-05:00||;False|2026-02-25T15:38:44.3715994-05:00||;True|2026-02-24T19:51:53.1551868-05:00||;False|2026-02-24T19:43:19.3025911-05:00||;False|2026-02-24T19:42:13.1917640-05:00||;False|2026-02-24T19:38:15.8758920-05:00||;False|2026-02-24T17:40:33.5942479-05:00||;True|2026-02-22T23:39:18.3083194-05:00||;True|2026-02-22T22:49:15.6612136-05:00||;False|2026-02-22T22:27:06.9204008-05:00||;False|2026-02-22T22:10:42.4205092-05:00||;True|2026-02-21T17:16:26.9185848-05:00||;True|2025-12-10T14:48:19.7344700-05:00||;True|2025-12-10T13:00:49.9088796-05:00||;True|2025-12-02T16:22:43.6445332-05:00||;False|2025-12-02T16:08:53.0683918-05:00||;True|2025-11-27T15:06:39.1060697-05:00||;False|2025-11-27T14:47:58.6010467-05:00||;False|2025-11-27T14:47:23.3359753-05:00||;False|2025-11-18T15:53:34.4827412-05:00||;False|2025-11-18T15:51:44.1523344-05:00||;</History>
+    <History>True|2026-03-06T18:34:43.9850437Z||;True|2026-03-05T14:07:04.6314257-05:00||;True|2026-03-02T15:01:39.7971627-05:00||;True|2026-02-25T16:03:13.0266330-05:00||;False|2026-02-25T15:38:44.3715994-05:00||;True|2026-02-24T19:51:53.1551868-05:00||;False|2026-02-24T19:43:19.3025911-05:00||;False|2026-02-24T19:42:13.1917640-05:00||;False|2026-02-24T19:38:15.8758920-05:00||;False|2026-02-24T17:40:33.5942479-05:00||;True|2026-02-22T23:39:18.3083194-05:00||;True|2026-02-22T22:49:15.6612136-05:00||;False|2026-02-22T22:27:06.9204008-05:00||;False|2026-02-22T22:10:42.4205092-05:00||;True|2026-02-21T17:16:26.9185848-05:00||;True|2025-12-10T14:48:19.7344700-05:00||;True|2025-12-10T13:00:49.9088796-05:00||;True|2025-12-02T16:22:43.6445332-05:00||;False|2025-12-02T16:08:53.0683918-05:00||;True|2025-11-27T15:06:39.1060697-05:00||;False|2025-11-27T14:47:58.6010467-05:00||;False|2025-11-27T14:47:23.3359753-05:00||;False|2025-11-18T15:53:34.4827412-05:00||;False|2025-11-18T15:51:44.1523344-05:00||;</History>
     <LastFailureDetails />
     <_PublishTargetUrl>ftp://VaperApi.somee.com/www.VaperApi.somee.com</_PublishTargetUrl>
   </PropertyGroup>
@@ -697,16 +697,16 @@
       <publishTime>01/29/2022 10:04:12</publishTime>
     </File>
     <File Include="Vaper_Api.deps.json">
-      <publishTime>03/02/2026 14:48:40</publishTime>
+      <publishTime>03/06/2026 13:20:36</publishTime>
     </File>
     <File Include="Vaper_Api.dll">
-      <publishTime>03/02/2026 14:48:13</publishTime>
+      <publishTime>03/06/2026 13:20:35</publishTime>
     </File>
     <File Include="Vaper_Api.exe">
-      <publishTime>03/02/2026 14:48:13</publishTime>
+      <publishTime>03/06/2026 13:20:35</publishTime>
     </File>
     <File Include="Vaper_Api.pdb">
-      <publishTime>03/02/2026 14:48:13</publishTime>
+      <publishTime>03/06/2026 13:20:34</publishTime>
     </File>
     <File Include="Vaper_Api.runtimeconfig.json">
       <publishTime>02/24/2026 19:35:53</publishTime>
@@ -718,7 +718,7 @@
       <publishTime>01/29/2022 10:04:12</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>03/02/2026 14:48:40</publishTime>
+      <publishTime>03/06/2026 13:20:37</publishTime>
     </File>
     <File Include="zh-CN/Humanizer.resources.dll">
       <publishTime>01/29/2022 10:04:12</publishTime>
