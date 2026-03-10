@@ -58,6 +58,8 @@ public partial class VentaPedido
     [Column(TypeName = "decimal(10, 2)")]
     public decimal? Total { get; set; }
 
+    public int? VigenciaDevolucion { get; set; }
+
     [InverseProperty("VentaPedido")]
     public virtual ICollection<Abono> Abonos { get; set; } = new List<Abono>();
 
