@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,15 +18,10 @@ public partial class DetalleDevolucione
 
     public int? Cantidad { get; set; }
 
-    public int? UsuarioId { get; set; }
 
     [ForeignKey("DevolucionId")]
     [InverseProperty("DetalleDevoluciones")]
     public virtual Devolucione? Devolucion { get; set; }
-
-    [ForeignKey("UsuarioId")]
-    [InverseProperty("DetalleDevoluciones")]
-    public virtual Usuario? Usuario { get; set; }
 
     [ForeignKey("VentaPedidoId")]
     [InverseProperty("DetalleDevoluciones")]

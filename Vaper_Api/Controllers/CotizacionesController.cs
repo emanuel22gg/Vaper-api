@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,6 +28,10 @@ namespace Vaper_Api.Controllers
             public string? NombreUsuario { get; set; }
             public DateTime Fecha { get; set; }
             public decimal Total { get; set; }
+            public int? Vigencia { get; set; }
+            public int? EstadoId { get; set; }
+            public decimal? Subtotal { get; set; }
+            public decimal? Descuento { get; set; }
         }
 
         // ===========================
@@ -43,7 +47,11 @@ namespace Vaper_Api.Controllers
                 Id = c.Id,
                 NombreUsuario = c.NombreUsuario,
                 Fecha = c.Fecha,
-                Total = c.Total
+                Total = c.Total,
+                Vigencia = c.Vigencia,
+                EstadoId = c.EstadoId,
+                Subtotal = c.Subtotal,
+                Descuento = c.Descuento
             }).ToList();
         }
 
@@ -63,7 +71,11 @@ namespace Vaper_Api.Controllers
                 Id = c.Id,
                 NombreUsuario = c.NombreUsuario,
                 Fecha = c.Fecha,
-                Total = c.Total
+                Total = c.Total,
+                Vigencia = c.Vigencia,
+                EstadoId = c.EstadoId,
+                Subtotal = c.Subtotal,
+                Descuento = c.Descuento
             };
         }
 
@@ -77,7 +89,11 @@ namespace Vaper_Api.Controllers
             {
                 NombreUsuario = dto.NombreUsuario,
                 Fecha = DateTime.Now,
-                Total = dto.Total
+                Total = dto.Total,
+                Vigencia = dto.Vigencia,
+                EstadoId = dto.EstadoId,
+                Subtotal = dto.Subtotal,
+                Descuento = dto.Descuento
             };
 
             _context.Cotizaciones.Add(cotizacion);
@@ -101,6 +117,10 @@ namespace Vaper_Api.Controllers
 
             cotizacion.NombreUsuario = dto.NombreUsuario;
             cotizacion.Total = dto.Total;
+            cotizacion.Vigencia = dto.Vigencia;
+            cotizacion.EstadoId = dto.EstadoId;
+            cotizacion.Subtotal = dto.Subtotal;
+            cotizacion.Descuento = dto.Descuento;
 
             await _context.SaveChangesAsync();
             return NoContent();

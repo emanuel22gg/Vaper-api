@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vaper_Api.Models
@@ -16,6 +16,9 @@ namespace Vaper_Api.Models
 
         [Column(TypeName = "decimal(10, 2)")]
         public decimal PrecioUnitario { get; set; }
+
+        [Column(TypeName = "decimal(10, 2)")]
+        public decimal? Subtotal { get; set; }
 
         [ForeignKey("CotizacionId")]
         [InverseProperty("DetalleCotizaciones")]

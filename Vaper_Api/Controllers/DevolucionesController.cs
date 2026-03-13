@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,9 +25,12 @@ namespace Vaper_Api.Controllers
         public class DevolucioneDto
         {
             public int Id { get; set; }
-            public DateTime? Fecha { get; set; }
+            public DateTime? FechaDevolucion { get; set; }
             public string? Descripcion { get; set; }
             public bool? Estado { get; set; }
+            public int? VentaPedidoId { get; set; }
+            public decimal? MontoTotal { get; set; }
+            public int? EstadoId { get; set; }
         }
 
         // =========================
@@ -41,9 +44,12 @@ namespace Vaper_Api.Controllers
             return devoluciones.Select(d => new DevolucioneDto
             {
                 Id = d.Id,
-                Fecha = d.Fecha,
+                FechaDevolucion = d.FechaDevolucion,
                 Descripcion = d.Descripcion,
-                Estado = d.Estado
+                Estado = d.Estado,
+                VentaPedidoId = d.VentaPedidoId,
+                MontoTotal = d.MontoTotal,
+                EstadoId = d.EstadoId
             }).ToList();
         }
 
@@ -59,9 +65,12 @@ namespace Vaper_Api.Controllers
             return new DevolucioneDto
             {
                 Id = d.Id,
-                Fecha = d.Fecha,
+                FechaDevolucion = d.FechaDevolucion,
                 Descripcion = d.Descripcion,
-                Estado = d.Estado
+                Estado = d.Estado,
+                VentaPedidoId = d.VentaPedidoId,
+                MontoTotal = d.MontoTotal,
+                EstadoId = d.EstadoId
             };
         }
 
@@ -73,9 +82,12 @@ namespace Vaper_Api.Controllers
         {
             var devolucion = new Devolucione
             {
-                Fecha = dto.Fecha,
+                FechaDevolucion = dto.FechaDevolucion,
                 Descripcion = dto.Descripcion,
-                Estado = dto.Estado
+                Estado = dto.Estado,
+                VentaPedidoId = dto.VentaPedidoId,
+                MontoTotal = dto.MontoTotal,
+                EstadoId = dto.EstadoId
             };
 
             _context.Devoluciones.Add(devolucion);
@@ -95,9 +107,12 @@ namespace Vaper_Api.Controllers
             var devolucion = await _context.Devoluciones.FindAsync(id);
             if (devolucion == null) return NotFound();
 
-            devolucion.Fecha = dto.Fecha;
+            devolucion.FechaDevolucion = dto.FechaDevolucion;
             devolucion.Descripcion = dto.Descripcion;
             devolucion.Estado = dto.Estado;
+            devolucion.VentaPedidoId = dto.VentaPedidoId;
+            devolucion.MontoTotal = dto.MontoTotal;
+            devolucion.EstadoId = dto.EstadoId;
 
             await _context.SaveChangesAsync();
             return NoContent();

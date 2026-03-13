@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,4 +20,10 @@ public partial class Estado
 
     [InverseProperty("Estado")]
     public virtual ICollection<VentaPedido> VentaPedidos { get; set; } = new List<VentaPedido>();
+
+    [InverseProperty("Estado")]
+    public virtual ICollection<Cotizacion> Cotizaciones { get; set; } = new List<Cotizacion>();
+
+    [InverseProperty("EstadoNavigation")]
+    public virtual ICollection<Devolucione> Devoluciones { get; set; } = new List<Devolucione>();
 }

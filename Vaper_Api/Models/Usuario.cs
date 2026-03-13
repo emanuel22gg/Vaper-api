@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -60,9 +60,6 @@ public partial class Usuario
     public bool? EstadoUsuario { get; set; }
 
     public int? RolId { get; set; }
-
-    [InverseProperty("Usuario")]
-    public virtual ICollection<DetalleDevolucione> DetalleDevoluciones { get; set; } = new List<DetalleDevolucione>();
 
     [ForeignKey("RolId")]
     [InverseProperty("Usuarios")]

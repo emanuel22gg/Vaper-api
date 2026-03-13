@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -65,6 +65,9 @@ public partial class VentaPedido
 
     [InverseProperty("VentaPedido")]
     public virtual ICollection<DetalleVentaPedido> DetalleVentaPedidos { get; set; } = new List<DetalleVentaPedido>();
+
+    [InverseProperty("VentaPedido")]
+    public virtual ICollection<Devolucione> Devoluciones { get; set; } = new List<Devolucione>();
 
     [ForeignKey("EstadoId")]
     [InverseProperty("VentaPedidos")]

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +29,7 @@ namespace Vaper_Api.Controllers
             public int ProductoId { get; set; }
             public int Cantidad { get; set; }
             public decimal PrecioUnitario { get; set; }
+            public decimal? Subtotal { get; set; }
             public string? NombreProducto { get; set; }
         }
 
@@ -49,6 +50,7 @@ namespace Vaper_Api.Controllers
                 ProductoId = d.ProductoId,
                 Cantidad = d.Cantidad,
                 PrecioUnitario = d.PrecioUnitario,
+                Subtotal = d.Subtotal,
                 NombreProducto = d.Producto != null ? d.Producto.NombreProducto : null
             }).ToList();
         }
@@ -73,6 +75,7 @@ namespace Vaper_Api.Controllers
                 ProductoId = d.ProductoId,
                 Cantidad = d.Cantidad,
                 PrecioUnitario = d.PrecioUnitario,
+                Subtotal = d.Subtotal,
                 NombreProducto = d.Producto != null ? d.Producto.NombreProducto : null
             };
         }
@@ -95,6 +98,7 @@ namespace Vaper_Api.Controllers
                 ProductoId = d.ProductoId,
                 Cantidad = d.Cantidad,
                 PrecioUnitario = d.PrecioUnitario,
+                Subtotal = d.Subtotal,
                 NombreProducto = d.Producto != null ? d.Producto.NombreProducto : null
             }).ToList();
         }
@@ -110,7 +114,8 @@ namespace Vaper_Api.Controllers
                 CotizacionId = dto.CotizacionId,
                 ProductoId = dto.ProductoId,
                 Cantidad = dto.Cantidad,
-                PrecioUnitario = dto.PrecioUnitario
+                PrecioUnitario = dto.PrecioUnitario,
+                Subtotal = dto.Subtotal
             };
 
             _context.DetalleCotizaciones.Add(detalle);
@@ -135,6 +140,7 @@ namespace Vaper_Api.Controllers
             detalle.ProductoId = dto.ProductoId;
             detalle.Cantidad = dto.Cantidad;
             detalle.PrecioUnitario = dto.PrecioUnitario;
+            detalle.Subtotal = dto.Subtotal;
 
             await _context.SaveChangesAsync();
             return NoContent();

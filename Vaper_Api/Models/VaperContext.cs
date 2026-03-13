@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -88,6 +88,8 @@ public partial class VaperContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Cotizaci__3214EC07");
 
             entity.Property(e => e.Fecha).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Estado).WithMany(p => p.Cotizaciones).HasForeignKey(d => d.EstadoId).HasConstraintName("FK_Cotizaciones_Estados");
         });
 
         modelBuilder.Entity<DetalleCompra>(entity =>
@@ -118,8 +120,6 @@ public partial class VaperContext : DbContext
 
             entity.HasOne(d => d.Devolucion).WithMany(p => p.DetalleDevoluciones).HasConstraintName("FK__Detalle_D__Devol__208CD6FA");
 
-            entity.HasOne(d => d.Usuario).WithMany(p => p.DetalleDevoluciones).HasConstraintName("FK__Detalle_D__Usuar__22751F6C");
-
             entity.HasOne(d => d.VentaPedido).WithMany(p => p.DetalleDevoluciones).HasConstraintName("FK__Detalle_D__Venta__2180FB33");
         });
 
@@ -136,7 +136,11 @@ public partial class VaperContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Devoluci__3214EC074BBF49D5");
 
-            entity.Property(e => e.Fecha).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.FechaDevolucion).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.VentaPedido).WithMany(p => p.Devoluciones).HasForeignKey(d => d.VentaPedidoId).HasConstraintName("FK_Devoluciones_Venta_Pedidos");
+
+            entity.HasOne(d => d.EstadoNavigation).WithMany(p => p.Devoluciones).HasForeignKey(d => d.EstadoId).HasConstraintName("FK_Devoluciones_Estados");
         });
 
         modelBuilder.Entity<Estado>(entity =>
