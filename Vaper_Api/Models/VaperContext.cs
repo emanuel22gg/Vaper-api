@@ -120,7 +120,7 @@ public partial class VaperContext : DbContext
 
             entity.HasOne(d => d.Devolucion).WithMany(p => p.DetalleDevoluciones).HasConstraintName("FK__Detalle_D__Devol__208CD6FA");
 
-            entity.HasOne(d => d.VentaPedido).WithMany(p => p.DetalleDevoluciones).HasConstraintName("FK__Detalle_D__Venta__2180FB33");
+            entity.HasOne(d => d.DetalleVentaPedido).WithMany(p => p.DetalleDevoluciones).HasConstraintName("FK__Detalle_D__Venta__2180FB33");
         });
 
         modelBuilder.Entity<DetalleVentaPedido>(entity =>

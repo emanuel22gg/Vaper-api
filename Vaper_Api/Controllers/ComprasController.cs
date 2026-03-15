@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +20,7 @@ namespace Vaper_Api.Controllers
         }
 
         // =========================
-        // ✅ DTO DENTRO DEL CONTROLADOR (IGUAL A TU MODELO)
+        // ✅ DTO DENTRO DEL CONTROLADOR
         // =========================
         public class CompraDto
         {
@@ -33,10 +33,10 @@ namespace Vaper_Api.Controllers
             public int? Estado { get; set; }
             public string? Observaciones { get; set; }
             public DateTime? FechaCreacion { get; set; }
-            public List<DetalleCompraDto> DetalleCompras { get; set; } = new();
+            public List<DetalleCompraItemDto> DetalleCompras { get; set; } = new();
         }
 
-        public class DetalleCompraDto
+        public class DetalleCompraItemDto
         {
             public int ProductoId { get; set; }
             public int Cantidad { get; set; }
@@ -65,7 +65,7 @@ namespace Vaper_Api.Controllers
                 Estado = c.Estado,
                 Observaciones = c.Observaciones,
                 FechaCreacion = c.FechaCreacion,
-                DetalleCompras = c.DetalleCompras.Select(d => new DetalleCompraDto
+                DetalleCompras = c.DetalleCompras.Select(d => new DetalleCompraItemDto
                 {
                     ProductoId = d.ProductoId ?? 0,
                     Cantidad = d.Cantidad ?? 0,
@@ -98,7 +98,7 @@ namespace Vaper_Api.Controllers
                 Estado = c.Estado,
                 Observaciones = c.Observaciones,
                 FechaCreacion = c.FechaCreacion,
-                DetalleCompras = c.DetalleCompras.Select(d => new DetalleCompraDto
+                DetalleCompras = c.DetalleCompras.Select(d => new DetalleCompraItemDto
                 {
                     ProductoId = d.ProductoId ?? 0,
                     Cantidad = d.Cantidad ?? 0,
@@ -154,7 +154,7 @@ namespace Vaper_Api.Controllers
                 Estado = compra.Estado,
                 Observaciones = compra.Observaciones,
                 FechaCreacion = compra.FechaCreacion,
-                DetalleCompras = compra.DetalleCompras.Select(d => new DetalleCompraDto
+                DetalleCompras = compra.DetalleCompras.Select(d => new DetalleCompraItemDto
                 {
                     ProductoId = d.ProductoId ?? 0,
                     Cantidad = d.Cantidad ?? 0,

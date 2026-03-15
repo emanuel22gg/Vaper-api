@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +25,7 @@ namespace Vaper_Api.Controllers
         // =========================
         public class AbonoDto
         {
+            public int Id { get; set; }
             public int VentaPedidoId { get; set; }
             public DateTime Fecha { get; set; }
             public decimal Monto { get; set; }
@@ -33,41 +34,79 @@ namespace Vaper_Api.Controllers
             public bool Estado { get; set; }
         }
 
-        // =========================
-        // GET: api/Abonoes
-        // =========================
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Abono>>> GetAbonos()
+        public async Task<ActionResult<IEnumerable<AbonoDto>>> GetAbonos()
         {
-            return await _context.Abonos.ToListAsync();
+            var abonos = await _context.Abonos.ToListAsync();
+            return abonos.Select(a => new AbonoDto
+            {
+                Id = a.Id,
+                VentaPedidoId = a.VentaPedidoId ?? 0,
+                Fecha = a.Fecha ?? DateTime.MinValue,
+                Monto = (decimal)(a.Monto ?? 0),
+                SaldoRestante = (decimal)(a.SaldoRestante ?? 0),
+                MetodoPago = a.MetodoPago,
+                Estado = a.Estado ?? false
+            }).ToList();
+        }
+
+        // =========================
+        // GET: api/Abonoes/pedido/5
+        // =========================
+        [HttpGet("pedido/{pedidoId}")]
+        public async Task<ActionResult<IEnumerable<AbonoDto>>> GetAbonosByPedido(int pedidoId)
+        {
+            var abonos = await _context.Abonos
+                .Where(a => a.VentaPedidoId == pedidoId)
+                .ToListAsync();
+
+            return abonos.Select(a => new AbonoDto
+            {
+                Id = a.Id,
+                VentaPedidoId = a.VentaPedidoId ?? 0,
+                Fecha = a.Fecha ?? DateTime.MinValue,
+                Monto = (decimal)(a.Monto ?? 0),
+                SaldoRestante = (decimal)(a.SaldoRestante ?? 0),
+                MetodoPago = a.MetodoPago,
+                Estado = a.Estado ?? false
+            }).ToList();
         }
 
         // =========================
         // GET: api/Abonoes/5
         // =========================
         [HttpGet("{id}")]
-        public async Task<ActionResult<Abono>> GetAbono(int id)
+        public async Task<ActionResult<AbonoDto>> GetAbono(int id)
         {
-            var abono = await _context.Abonos.FindAsync(id);
+            var a = await _context.Abonos.FindAsync(id);
 
-            if (abono == null)
+            if (a == null)
             {
                 return NotFound();
             }
 
-            return abono;
+            return new AbonoDto
+            {
+                Id = a.Id,
+                VentaPedidoId = a.VentaPedidoId ?? 0,
+                Fecha = a.Fecha ?? DateTime.MinValue,
+                Monto = (decimal)(a.Monto ?? 0),
+                SaldoRestante = (decimal)(a.SaldoRestante ?? 0),
+                MetodoPago = a.MetodoPago,
+                Estado = a.Estado ?? false
+            };
         }
 
         // =========================
-        // ✅ POST: SOLO RECIBE LOS CAMPOS QUE PEDISTE
+        // ✅ POST: SOLO RECIBE Y DEVUELVE DTO (Evita ciclos en Swagger)
         // =========================
         [HttpPost]
-        public async Task<ActionResult<Abono>> PostAbono(AbonoDto dto)
+        public async Task<ActionResult<AbonoDto>> PostAbono(AbonoDto dto)
         {
             var abono = new Abono
             {
                 VentaPedidoId = dto.VentaPedidoId,
-                Fecha = dto.Fecha,
+                Fecha = DateTime.Now,
                 Monto = dto.Monto,
                 SaldoRestante = dto.SaldoRestante,
                 MetodoPago = dto.MetodoPago,
@@ -77,7 +116,11 @@ namespace Vaper_Api.Controllers
             _context.Abonos.Add(abono);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAbono", new { id = abono.Id }, abono);
+            // Retornar el DTO con el ID generado
+            dto.Id = abono.Id;
+            dto.Fecha = abono.Fecha ?? DateTime.Now;
+
+            return CreatedAtAction(nameof(GetAbono), new { id = abono.Id }, dto);
         }
 
         // =========================

@@ -17,8 +17,6 @@ public partial class Devolucione
     [Column(TypeName = "text")]
     public string? Descripcion { get; set; }
 
-    public bool? Estado { get; set; }
-
     public int? VentaPedidoId { get; set; }
 
     [Column(TypeName = "decimal(10, 2)")]

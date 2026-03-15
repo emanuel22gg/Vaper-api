@@ -27,7 +27,6 @@ namespace Vaper_Api.Controllers
             public int Id { get; set; }
             public DateTime? FechaDevolucion { get; set; }
             public string? Descripcion { get; set; }
-            public bool? Estado { get; set; }
             public int? VentaPedidoId { get; set; }
             public decimal? MontoTotal { get; set; }
             public int? EstadoId { get; set; }
@@ -46,7 +45,6 @@ namespace Vaper_Api.Controllers
                 Id = d.Id,
                 FechaDevolucion = d.FechaDevolucion,
                 Descripcion = d.Descripcion,
-                Estado = d.Estado,
                 VentaPedidoId = d.VentaPedidoId,
                 MontoTotal = d.MontoTotal,
                 EstadoId = d.EstadoId
@@ -67,7 +65,6 @@ namespace Vaper_Api.Controllers
                 Id = d.Id,
                 FechaDevolucion = d.FechaDevolucion,
                 Descripcion = d.Descripcion,
-                Estado = d.Estado,
                 VentaPedidoId = d.VentaPedidoId,
                 MontoTotal = d.MontoTotal,
                 EstadoId = d.EstadoId
@@ -84,7 +81,6 @@ namespace Vaper_Api.Controllers
             {
                 FechaDevolucion = dto.FechaDevolucion,
                 Descripcion = dto.Descripcion,
-                Estado = dto.Estado,
                 VentaPedidoId = dto.VentaPedidoId,
                 MontoTotal = dto.MontoTotal,
                 EstadoId = dto.EstadoId
@@ -109,7 +105,6 @@ namespace Vaper_Api.Controllers
 
             devolucion.FechaDevolucion = dto.FechaDevolucion;
             devolucion.Descripcion = dto.Descripcion;
-            devolucion.Estado = dto.Estado;
             devolucion.VentaPedidoId = dto.VentaPedidoId;
             devolucion.MontoTotal = dto.MontoTotal;
             devolucion.EstadoId = dto.EstadoId;

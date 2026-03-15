@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,38 +20,77 @@ namespace Vaper_Api.Controllers
             _context = context;
         }
 
+        // ===========================
+        // ✅ DTO PARA OPTIMIZAR JSON
+        // ===========================
+        public class DetalleCompraDto
+        {
+            public int Id { get; set; }
+            public int? CompraId { get; set; }
+            public int? ProductoId { get; set; }
+            public int? Cantidad { get; set; }
+            public decimal? PrecioUnitario { get; set; }
+            public decimal? Subtotal { get; set; }
+        }
+
         // GET: api/DetalleCompras
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleCompra>>> GetDetalleCompras()
+        public async Task<ActionResult<IEnumerable<DetalleCompraDto>>> GetDetalleCompras()
         {
-            return await _context.DetalleCompras.ToListAsync();
+            var detalles = await _context.DetalleCompras.ToListAsync();
+            return detalles.Select(d => new DetalleCompraDto
+            {
+                Id = d.Id,
+                CompraId = d.CompraId,
+                ProductoId = d.ProductoId,
+                Cantidad = d.Cantidad,
+                PrecioUnitario = d.PrecioUnitario,
+                Subtotal = d.Subtotal
+            }).ToList();
         }
 
         // GET: api/DetalleCompras/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DetalleCompra>> GetDetalleCompra(int id)
+        public async Task<ActionResult<DetalleCompraDto>> GetDetalleCompra(int id)
         {
-            var detalleCompra = await _context.DetalleCompras.FindAsync(id);
+            var d = await _context.DetalleCompras.FindAsync(id);
 
-            if (detalleCompra == null)
+            if (d == null)
             {
                 return NotFound();
             }
 
-            return detalleCompra;
+            return new DetalleCompraDto
+            {
+                Id = d.Id,
+                CompraId = d.CompraId,
+                ProductoId = d.ProductoId,
+                Cantidad = d.Cantidad,
+                PrecioUnitario = d.PrecioUnitario,
+                Subtotal = d.Subtotal
+            };
         }
 
         // PUT: api/DetalleCompras/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDetalleCompra(int id, DetalleCompra detalleCompra)
+        public async Task<IActionResult> PutDetalleCompra(int id, DetalleCompraDto dto)
         {
-            if (id != detalleCompra.Id)
+            if (id != dto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(detalleCompra).State = EntityState.Modified;
+            var detalle = await _context.DetalleCompras.FindAsync(id);
+            if (detalle == null)
+            {
+                return NotFound();
+            }
+
+            detalle.CompraId = dto.CompraId;
+            detalle.ProductoId = dto.ProductoId;
+            detalle.Cantidad = dto.Cantidad;
+            detalle.PrecioUnitario = dto.PrecioUnitario;
+            detalle.Subtotal = dto.Subtotal;
 
             try
             {
@@ -73,14 +112,24 @@ namespace Vaper_Api.Controllers
         }
 
         // POST: api/DetalleCompras
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DetalleCompra>> PostDetalleCompra(DetalleCompra detalleCompra)
+        public async Task<ActionResult<DetalleCompraDto>> PostDetalleCompra(DetalleCompraDto dto)
         {
-            _context.DetalleCompras.Add(detalleCompra);
+            var detalle = new DetalleCompra
+            {
+                CompraId = dto.CompraId,
+                ProductoId = dto.ProductoId,
+                Cantidad = dto.Cantidad,
+                PrecioUnitario = dto.PrecioUnitario,
+                Subtotal = dto.Subtotal
+            };
+
+            _context.DetalleCompras.Add(detalle);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDetalleCompra", new { id = detalleCompra.Id }, detalleCompra);
+            dto.Id = detalle.Id;
+
+            return CreatedAtAction("GetDetalleCompra", new { id = detalle.Id }, dto);
         }
 
         // DELETE: api/DetalleCompras/5

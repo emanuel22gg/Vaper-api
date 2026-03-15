@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,7 +24,7 @@ public partial class DetalleVentaPedido
     [Column(TypeName = "decimal(10, 2)")]
     public decimal? Subtotal { get; set; }
 
-    [InverseProperty("VentaPedido")]
+    [InverseProperty("DetalleVentaPedido")]
     public virtual ICollection<DetalleDevolucione> DetalleDevoluciones { get; set; } = new List<DetalleDevolucione>();
 
     [ForeignKey("ProductoId")]

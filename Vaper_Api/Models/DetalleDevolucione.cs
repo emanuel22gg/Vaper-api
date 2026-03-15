@@ -14,7 +14,7 @@ public partial class DetalleDevolucione
 
     public int? DevolucionId { get; set; }
 
-    public int? VentaPedidoId { get; set; }
+    public int? DetalleVentaPedidoId { get; set; }
 
     public int? Cantidad { get; set; }
 
@@ -23,7 +23,7 @@ public partial class DetalleDevolucione
     [InverseProperty("DetalleDevoluciones")]
     public virtual Devolucione? Devolucion { get; set; }
 
-    [ForeignKey("VentaPedidoId")]
+    [ForeignKey("DetalleVentaPedidoId")]
     [InverseProperty("DetalleDevoluciones")]
-    public virtual DetalleVentaPedido? VentaPedido { get; set; }
+    public virtual DetalleVentaPedido? DetalleVentaPedido { get; set; }
 }

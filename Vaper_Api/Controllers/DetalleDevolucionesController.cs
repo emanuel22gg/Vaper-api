@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,38 +20,63 @@ namespace Vaper_Api.Controllers
             _context = context;
         }
 
+        public class DetalleDevolucioneDto
+        {
+            public int Id { get; set; }
+            public int? DevolucionId { get; set; }
+            public int? DetalleVentaPedidoId { get; set; }
+            public int? Cantidad { get; set; }
+        }
+
         // GET: api/DetalleDevoluciones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleDevolucione>>> GetDetalleDevoluciones()
+        public async Task<ActionResult<IEnumerable<DetalleDevolucioneDto>>> GetDetalleDevoluciones()
         {
-            return await _context.DetalleDevoluciones.ToListAsync();
+            var detalles = await _context.DetalleDevoluciones.ToListAsync();
+            return detalles.Select(d => new DetalleDevolucioneDto
+            {
+                Id = d.Id,
+                DevolucionId = d.DevolucionId,
+                DetalleVentaPedidoId = d.DetalleVentaPedidoId,
+                Cantidad = d.Cantidad
+            }).ToList();
         }
 
         // GET: api/DetalleDevoluciones/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DetalleDevolucione>> GetDetalleDevolucione(int id)
+        public async Task<ActionResult<DetalleDevolucioneDto>> GetDetalleDevolucione(int id)
         {
-            var detalleDevolucione = await _context.DetalleDevoluciones.FindAsync(id);
+            var d = await _context.DetalleDevoluciones.FindAsync(id);
 
-            if (detalleDevolucione == null)
+            if (d == null)
             {
                 return NotFound();
             }
 
-            return detalleDevolucione;
+            return new DetalleDevolucioneDto
+            {
+                Id = d.Id,
+                DevolucionId = d.DevolucionId,
+                DetalleVentaPedidoId = d.DetalleVentaPedidoId,
+                Cantidad = d.Cantidad
+            };
         }
 
         // PUT: api/DetalleDevoluciones/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDetalleDevolucione(int id, DetalleDevolucione detalleDevolucione)
+        public async Task<IActionResult> PutDetalleDevolucione(int id, DetalleDevolucioneDto dto)
         {
-            if (id != detalleDevolucione.Id)
+            if (id != dto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(detalleDevolucione).State = EntityState.Modified;
+            var d = await _context.DetalleDevoluciones.FindAsync(id);
+            if (d == null) return NotFound();
+
+            d.DevolucionId = dto.DevolucionId;
+            d.DetalleVentaPedidoId = dto.DetalleVentaPedidoId;
+            d.Cantidad = dto.Cantidad;
 
             try
             {
@@ -73,14 +98,22 @@ namespace Vaper_Api.Controllers
         }
 
         // POST: api/DetalleDevoluciones
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DetalleDevolucione>> PostDetalleDevolucione(DetalleDevolucione detalleDevolucione)
+        public async Task<ActionResult<DetalleDevolucioneDto>> PostDetalleDevolucione(DetalleDevolucioneDto dto)
         {
+            var detalleDevolucione = new DetalleDevolucione
+            {
+                DevolucionId = dto.DevolucionId,
+                DetalleVentaPedidoId = dto.DetalleVentaPedidoId,
+                Cantidad = dto.Cantidad
+            };
+
             _context.DetalleDevoluciones.Add(detalleDevolucione);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDetalleDevolucione", new { id = detalleDevolucione.Id }, detalleDevolucione);
+            dto.Id = detalleDevolucione.Id;
+
+            return CreatedAtAction("GetDetalleDevolucione", new { id = detalleDevolucione.Id }, dto);
         }
 
         // DELETE: api/DetalleDevoluciones/5
