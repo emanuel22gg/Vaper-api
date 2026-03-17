@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,6 +15,10 @@ public partial class Compra
     [StringLength(50)]
     [Unicode(false)]
     public string NumeroCompra { get; set; } = null!;
+    
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? NumeroFactura { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime? FechaCompra { get; set; }
@@ -34,7 +38,7 @@ public partial class Compra
     public string? Observaciones { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime? FechaCreacion { get; set; }
+    public DateTime? FechaRegistro { get; set; }
 
     [InverseProperty("Compra")]
     public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();

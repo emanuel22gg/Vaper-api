@@ -76,7 +76,7 @@ public partial class VaperContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Compras__3214EC07838F141B");
 
             entity.Property(e => e.FechaCompra).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.FechaCreacion).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.FechaRegistro).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.EstadoNavigation).WithMany(p => p.Compras).HasConstraintName("FK__Compras__Estado__17036CC0");
 
