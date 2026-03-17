@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,6 +35,11 @@ public partial class Compra
 
     [Column(TypeName = "datetime")]
     public DateTime? FechaCreacion { get; set; }
+
+    public int? NumeroFactura { get; set; }
+
+    [Column(TypeName = "datetime")]
+    public DateTime? FechaFactura { get; set; }
 
     [InverseProperty("Compra")]
     public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();

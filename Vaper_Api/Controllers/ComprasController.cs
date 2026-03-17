@@ -33,6 +33,8 @@ namespace Vaper_Api.Controllers
             public int? Estado { get; set; }
             public string? Observaciones { get; set; }
             public DateTime? FechaCreacion { get; set; }
+            public int? NumeroFactura { get; set; }
+            public DateTime? FechaFactura { get; set; }
             public List<DetalleCompraItemDto> DetalleCompras { get; set; } = new();
         }
 
@@ -121,7 +123,9 @@ namespace Vaper_Api.Controllers
                 Total = dto.Total,
                 Estado = dto.Estado,
                 Observaciones = dto.Observaciones,
-                FechaCreacion = dto.FechaCreacion ?? DateTime.Now
+                FechaCreacion = dto.FechaCreacion ?? DateTime.Now,
+                NumeroFactura = dto.NumeroFactura,
+                FechaFactura = dto.FechaFactura
             };
 
             // Mapeo de detalles - Aseguramos que la lista existe
@@ -154,6 +158,8 @@ namespace Vaper_Api.Controllers
                 Estado = compra.Estado,
                 Observaciones = compra.Observaciones,
                 FechaCreacion = compra.FechaCreacion,
+                NumeroFactura = compra.NumeroFactura,
+                FechaFactura = compra.FechaFactura,
                 DetalleCompras = compra.DetalleCompras.Select(d => new DetalleCompraItemDto
                 {
                     ProductoId = d.ProductoId ?? 0,
@@ -183,6 +189,8 @@ namespace Vaper_Api.Controllers
             compra.Estado = dto.Estado;
             compra.Observaciones = dto.Observaciones;
             compra.FechaCreacion = dto.FechaCreacion;
+            compra.NumeroFactura = dto.NumeroFactura;
+            compra.FechaFactura = dto.FechaFactura;
 
             await _context.SaveChangesAsync();
             return NoContent();
