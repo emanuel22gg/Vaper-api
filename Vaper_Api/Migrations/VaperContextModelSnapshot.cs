@@ -111,17 +111,11 @@ namespace Vaper_Api.Migrations
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("(getdate())");
 
-                    b.Property<DateTime?>("FechaFactura")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("NumeroCompra")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
-
-                    b.Property<int?>("NumeroFactura")
-                        .HasColumnType("int");
 
                     b.Property<string>("Observaciones")
                         .HasMaxLength(500)
