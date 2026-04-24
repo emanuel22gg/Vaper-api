@@ -40,6 +40,7 @@ namespace Vaper_Api.Controllers
             public decimal? Envio { get; set; }
             public decimal? Total { get; set; }
             public int? VigenciaDevolucion { get; set; }
+            public string? ComprobanteUrl { get; set; }
         }
 
         // ===========================
@@ -67,7 +68,8 @@ namespace Vaper_Api.Controllers
                 Subtotal = v.Subtotal,
                 Envio = v.Envio,
                 Total = v.Total,
-                VigenciaDevolucion = v.VigenciaDevolucion
+                VigenciaDevolucion = v.VigenciaDevolucion,
+                ComprobanteUrl = v.ComprobanteUrl
             }).ToList();
         }
 
@@ -98,7 +100,8 @@ namespace Vaper_Api.Controllers
                 Subtotal = v.Subtotal,
                 Envio = v.Envio,
                 Total = v.Total,
-                VigenciaDevolucion = v.VigenciaDevolucion
+                VigenciaDevolucion = v.VigenciaDevolucion,
+                ComprobanteUrl = v.ComprobanteUrl
             };
         }
 
@@ -124,7 +127,8 @@ namespace Vaper_Api.Controllers
                 Subtotal = dto.Subtotal,
                 Envio = dto.Envio,
                 Total = dto.Total,
-                VigenciaDevolucion = dto.VigenciaDevolucion
+                VigenciaDevolucion = dto.VigenciaDevolucion,
+                ComprobanteUrl = dto.ComprobanteUrl
             };
 
             _context.VentaPedidos.Add(venta);
@@ -160,6 +164,7 @@ namespace Vaper_Api.Controllers
             venta.Envio = dto.Envio;
             venta.Total = dto.Total;
             venta.VigenciaDevolucion = dto.VigenciaDevolucion;
+            venta.ComprobanteUrl = dto.ComprobanteUrl;
 
             await _context.SaveChangesAsync();
             return NoContent();
