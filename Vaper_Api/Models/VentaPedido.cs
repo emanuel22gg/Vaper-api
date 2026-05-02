@@ -60,6 +60,10 @@ public partial class VentaPedido
 
     public int? VigenciaDevolucion { get; set; }
 
+    [StringLength(500)]
+    [Unicode(false)]
+    public string? ComprobanteUrl { get; set; }
+
     [InverseProperty("VentaPedido")]
     public virtual ICollection<Abono> Abonos { get; set; } = new List<Abono>();
 
