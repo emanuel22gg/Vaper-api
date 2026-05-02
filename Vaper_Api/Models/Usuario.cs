@@ -43,6 +43,11 @@ public partial class Usuario
     [Unicode(false)]
     public string? Ciudad { get; set; }
 
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? Departamento { get; set; }
+
     [StringLength(50)]
     [Unicode(false)]
     public string? Direccion { get; set; }
