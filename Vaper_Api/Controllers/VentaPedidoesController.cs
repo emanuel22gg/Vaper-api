@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vaper_Api.Models;
+using Vaper_Api.Services;
 
 namespace Vaper_Api.Controllers
 {
@@ -13,10 +14,12 @@ namespace Vaper_Api.Controllers
     public class VentaPedidosController : ControllerBase
     {
         private readonly VaperContext _context;
+        private readonly EmailService _emailService;
 
         public VentaPedidosController(VaperContext context)
         {
             _context = context;
+            _emailService = new EmailService();
         }
 
         // ===========================
@@ -168,6 +171,44 @@ namespace Vaper_Api.Controllers
 
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        // ===========================
+        // ✅ POST: api/VentaPedidos/{id}/NotificarEstado
+        // ===========================
+        [HttpPost("{id}/NotificarEstado")]
+        public async Task<IActionResult> NotificarEstado(int id)
+        {
+            var pedido = await _context.VentaPedidos
+                .Include(v => v.Usuario)
+                .Include(v => v.Estado)
+                .FirstOrDefaultAsync(v => v.Id == id);
+
+            if (pedido == null)
+                return NotFound(new { message = $"No se encontró un pedido con ID {id}" });
+
+            if (pedido.Usuario == null)
+                return BadRequest(new { message = "El pedido no tiene un usuario asociado" });
+
+            if (string.IsNullOrWhiteSpace(pedido.Usuario.Correo))
+                return BadRequest(new { message = "El usuario del pedido no tiene un correo registrado" });
+
+            var nombreCompleto = $"{pedido.Usuario.Nombres} {pedido.Usuario.Apellidos}".Trim();
+            var estadoNombre = pedido.Estado?.NombreEstado ?? "Sin estado";
+            var fecha = pedido.FechaCreacion ?? DateTime.Now;
+
+            var (enviado, errorEmail) = await _emailService.EnviarEmailEstadoPedido(
+                pedido.Usuario.Correo,
+                nombreCompleto,
+                pedido.Id,
+                estadoNombre,
+                fecha
+            );
+
+            if (!enviado)
+                return StatusCode(500, new { message = "Error al enviar el correo de estado del pedido", detalle = errorEmail });
+
+            return Ok(new { message = $"Correo de actualización de estado enviado exitosamente a {pedido.Usuario.Correo}" });
         }
 
         // ===========================

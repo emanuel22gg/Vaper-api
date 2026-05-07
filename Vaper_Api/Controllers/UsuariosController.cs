@@ -267,6 +267,54 @@ namespace Vaper_Api.Controllers
         }
 
         // ===========================
+        // ✅ POST: api/Usuarios/{id}/NotificarAprobacion
+        // ===========================
+        [HttpPost("{id}/NotificarAprobacion")]
+        public async Task<IActionResult> NotificarAprobacion(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+
+            if (usuario == null)
+                return NotFound(new { message = $"No se encontró un usuario con ID {id}" });
+
+            if (string.IsNullOrWhiteSpace(usuario.Correo))
+                return BadRequest(new { message = "El usuario no tiene un correo registrado" });
+
+            var nombreCompleto = $"{usuario.Nombres} {usuario.Apellidos}".Trim();
+
+            var (enviado, errorEmail) = await _emailService.EnviarEmailAprobacion(usuario.Correo, nombreCompleto);
+
+            if (!enviado)
+                return StatusCode(500, new { message = "Error al enviar el correo de aprobación", detalle = errorEmail });
+
+            return Ok(new { message = $"Correo de aprobación enviado exitosamente a {usuario.Correo}" });
+        }
+
+        // ===========================
+        // ✅ POST: api/Usuarios/{id}/NotificarRechazo
+        // ===========================
+        [HttpPost("{id}/NotificarRechazo")]
+        public async Task<IActionResult> NotificarRechazo(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+
+            if (usuario == null)
+                return NotFound(new { message = $"No se encontró un usuario con ID {id}" });
+
+            if (string.IsNullOrWhiteSpace(usuario.Correo))
+                return BadRequest(new { message = "El usuario no tiene un correo registrado" });
+
+            var nombreCompleto = $"{usuario.Nombres} {usuario.Apellidos}".Trim();
+
+            var (enviado, errorEmail) = await _emailService.EnviarEmailRechazo(usuario.Correo, nombreCompleto);
+
+            if (!enviado)
+                return StatusCode(500, new { message = "Error al enviar el correo de rechazo", detalle = errorEmail });
+
+            return Ok(new { message = $"Correo de rechazo enviado exitosamente a {usuario.Correo}" });
+        }
+
+        // ===========================
         // ✅ DTOs para recuperación
         // ===========================
         public class ForgotPasswordRequest

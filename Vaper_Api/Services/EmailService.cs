@@ -11,6 +11,125 @@ namespace Vaper_Api.Services
         private readonly string _fromEmail = "vaperone4@gmail.com";
         private readonly string _fromPassword = "kihz qguo ctkk wsyi";
 
+        public async Task<(bool Exitoso, string? Error)> EnviarEmailAprobacion(string emailDestino, string nombreCompleto)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Vaper App", _fromEmail));
+                message.To.Add(new MailboxAddress("", emailDestino));
+                message.Subject = "Tu cuenta ha sido aprobada - Vaper App";
+
+                message.Body = new TextPart("html")
+                {
+                    Text = $@"
+                        <h2>¡Cuenta Aprobada!</h2>
+                        <p>Hola <strong>{nombreCompleto}</strong>,</p>
+                        <p>Nos complace informarte que tu documento ha sido validado exitosamente y tu cuenta ha sido aprobada.</p>
+                        <p>Ya puedes iniciar sesión en la plataforma con tus credenciales registradas.</p>
+                        <br/>
+                        <p>Si tienes alguna duda, no dudes en contactarnos.</p>
+                        <p>Bienvenido/a a <strong>Vaper App</strong>.</p>
+                    "
+                };
+
+                using var client = new SmtpClient();
+                await client.ConnectAsync(_smtpServer, _smtpPort, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync(_fromEmail, _fromPassword);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+
+                return (true, null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar email de aprobación: {ex.Message}");
+                return (false, ex.Message);
+            }
+        }
+
+        public async Task<(bool Exitoso, string? Error)> EnviarEmailEstadoPedido(string emailDestino, string nombreCompleto, int numeroPedido, string estadoPedido, DateTime fecha)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Vaper App", _fromEmail));
+                message.To.Add(new MailboxAddress("", emailDestino));
+                message.Subject = $"Actualización de tu pedido #{numeroPedido} - Vaper App";
+
+                message.Body = new TextPart("html")
+                {
+                    Text = $@"
+                        <h2>Actualización de tu Pedido</h2>
+                        <p>Hola <strong>{nombreCompleto}</strong>,</p>
+                        <p>Te informamos que el estado de tu pedido realizado el <strong>{fecha:dd/MM/yyyy}</strong> ha sido actualizado.</p>
+                        <table style='border-collapse: collapse; width: 100%; max-width: 400px;'>
+                            <tr>
+                                <td style='padding: 8px; border: 1px solid #ddd; font-weight: bold;'>Número de pedido</td>
+                                <td style='padding: 8px; border: 1px solid #ddd;'>#{numeroPedido}</td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 8px; border: 1px solid #ddd; font-weight: bold;'>Nuevo estado</td>
+                                <td style='padding: 8px; border: 1px solid #ddd; color: #2196F3;'><strong>{estadoPedido}</strong></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <p>Si tienes alguna pregunta sobre tu pedido, no dudes en contactarnos.</p>
+                        <p>Gracias por tu compra.<br/><strong>Equipo Vaper App</strong></p>
+                    "
+                };
+
+                using var client = new SmtpClient();
+                await client.ConnectAsync(_smtpServer, _smtpPort, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync(_fromEmail, _fromPassword);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+
+                return (true, null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar email de estado de pedido: {ex.Message}");
+                return (false, ex.Message);
+            }
+        }
+
+        public async Task<(bool Exitoso, string? Error)> EnviarEmailRechazo(string emailDestino, string nombreCompleto)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Vaper App", _fromEmail));
+                message.To.Add(new MailboxAddress("", emailDestino));
+                message.Subject = "Tu cuenta no ha sido aprobada - Vaper App";
+
+                message.Body = new TextPart("html")
+                {
+                    Text = $@"
+                        <h2>Cuenta No Aprobada</h2>
+                        <p>Hola <strong>{nombreCompleto}</strong>,</p>
+                        <p>Lamentamos informarte que tu documento no pudo ser validado y tu cuenta no ha sido aprobada en este momento.</p>
+                        <p>Si crees que esto es un error o deseas más información, por favor comunícate con nuestro equipo de soporte.</p>
+                        <br/>
+                        <p>Atentamente,<br/><strong>Equipo Vaper App</strong></p>
+                    "
+                };
+
+                using var client = new SmtpClient();
+                await client.ConnectAsync(_smtpServer, _smtpPort, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync(_fromEmail, _fromPassword);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+
+                return (true, null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar email de rechazo: {ex.Message}");
+                return (false, ex.Message);
+            }
+        }
+
         public async Task<(bool Exitoso, string? Error)> EnviarEmailRecuperacion(string emailDestino, string codigo)
         {
             try
