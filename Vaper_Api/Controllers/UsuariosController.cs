@@ -45,6 +45,7 @@ namespace Vaper_Api.Controllers
             public string? TipoCliente { get; set; }
 
             public string? Departamento { get; set; }
+            public string? DocumentoUrl { get; set; }
             public bool? EstadoUsuario { get; set; }
             public int? RolId { get; set; }
         }
@@ -73,6 +74,7 @@ namespace Vaper_Api.Controllers
                 FechaNacimiento = u.FechaNacimiento,
                 TipoCliente = u.TipoCliente,
                 Departamento = u.Departamento,
+                DocumentoUrl = u.DocumentoUrl,
                 EstadoUsuario = u.EstadoUsuario,
                 RolId = u.RolId
             }).ToList();
@@ -104,6 +106,7 @@ namespace Vaper_Api.Controllers
                 FechaNacimiento = u.FechaNacimiento,
                 TipoCliente = u.TipoCliente,
                 Departamento = u.Departamento,
+                DocumentoUrl = u.DocumentoUrl,
                 EstadoUsuario = u.EstadoUsuario,
                 RolId = u.RolId
             };
@@ -130,6 +133,7 @@ namespace Vaper_Api.Controllers
                 FechaNacimiento = dto.FechaNacimiento,
                 TipoCliente = dto.TipoCliente,
                 Departamento = dto.Departamento,
+                DocumentoUrl = dto.DocumentoUrl,
                 EstadoUsuario = dto.EstadoUsuario,
                 RolId = dto.RolId
             };
@@ -165,6 +169,7 @@ namespace Vaper_Api.Controllers
             usuario.FechaNacimiento = dto.FechaNacimiento;
             usuario.TipoCliente = dto.TipoCliente;
             usuario.Departamento = dto.Departamento;
+            usuario.DocumentoUrl = dto.DocumentoUrl;
             usuario.EstadoUsuario = dto.EstadoUsuario;
             usuario.RolId = dto.RolId;
 

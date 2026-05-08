@@ -62,6 +62,10 @@ public partial class Usuario
     [Unicode(false)]
     public string? TipoCliente { get; set; }
 
+    [StringLength(500)]
+    [Unicode(false)]
+    public string? DocumentoUrl { get; set; }
+
     public bool? EstadoUsuario { get; set; }
 
     public int? RolId { get; set; }
