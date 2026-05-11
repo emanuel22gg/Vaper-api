@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -118,6 +118,23 @@ namespace Vaper_Api.Controllers
         [HttpPost]
         public async Task<ActionResult<UsuarioDto>> PostUsuario(UsuarioDto dto)
         {
+            if (!string.IsNullOrWhiteSpace(dto.Correo))
+            {
+                var emailRegex = new System.Text.RegularExpressions.Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+                if (!emailRegex.IsMatch(dto.Correo))
+                {
+                    return BadRequest(new { message = "El formato del correo electrónico no es válido." });
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.Telefono))
+            {
+                if (!dto.Telefono.All(char.IsDigit) || dto.Telefono.Length > 10)
+                {
+                    return BadRequest(new { message = "El teléfono debe contener solo números y tener un máximo de 10 dígitos." });
+                }
+            }
+
             var usuario = new Usuario
             {
                 Nombres = dto.Nombres,
@@ -152,6 +169,23 @@ namespace Vaper_Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsuario(int id, UsuarioDto dto)
         {
+            if (!string.IsNullOrWhiteSpace(dto.Correo))
+            {
+                var emailRegex = new System.Text.RegularExpressions.Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+                if (!emailRegex.IsMatch(dto.Correo))
+                {
+                    return BadRequest(new { message = "El formato del correo electrónico no es válido." });
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.Telefono))
+            {
+                if (!dto.Telefono.All(char.IsDigit) || dto.Telefono.Length > 10)
+                {
+                    return BadRequest(new { message = "El teléfono debe contener solo números y tener un máximo de 10 dígitos." });
+                }
+            }
+
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
                 return NotFound();

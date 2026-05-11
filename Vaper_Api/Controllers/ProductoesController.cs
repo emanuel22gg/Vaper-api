@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -150,10 +150,17 @@ namespace Vaper_Api.Controllers
             if (producto == null)
                 return NotFound();
 
-            _context.Productos.Remove(producto);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            try
+            {
+                _context.Productos.Remove(producto);
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (DbUpdateException)
+            {
+                // Si hay una excepción de actualización (ej. violación de llave foránea)
+                return BadRequest(new { message = "No se puede eliminar el producto porque tiene ventas, compras o cotizaciones asociadas. Por favor, cambie su estado a Inactivo en su lugar." });
+            }
         }
     }
 }
