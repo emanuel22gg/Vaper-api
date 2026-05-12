@@ -139,6 +139,26 @@ namespace Vaper_Api.Controllers
 
             dto.Id = venta.Id;
 
+            // Enviar correo de confirmación al cliente
+            if (venta.UsuarioId.HasValue)
+            {
+                var usuario = await _context.Usuarios.FindAsync(venta.UsuarioId.Value);
+                if (usuario != null && !string.IsNullOrWhiteSpace(usuario.Correo))
+                {
+                    var nombreCompleto = $"{usuario.Nombres} {usuario.Apellidos}".Trim();
+                    var fechaCreacion = venta.FechaCreacion ?? DateTime.Now;
+                    await _emailService.EnviarEmailConfirmacionPedido(
+                        usuario.Correo,
+                        nombreCompleto,
+                        venta.Id,
+                        fechaCreacion,
+                        venta.Total,
+                        venta.MetodoPago,
+                        venta.DireccionEntrega
+                    );
+                }
+            }
+
             return CreatedAtAction(nameof(GetVentaPedido), new { id = venta.Id }, dto);
         }
 
