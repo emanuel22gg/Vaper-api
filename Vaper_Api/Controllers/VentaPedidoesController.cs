@@ -46,6 +46,11 @@ namespace Vaper_Api.Controllers
             public string? ComprobanteUrl { get; set; }
         }
 
+        public class NotificarEstadoDto
+        {
+            public string? Guia { get; set; }
+        }
+
         // ===========================
         // ✅ GET: api/VentaPedidos
         // ===========================
@@ -197,7 +202,7 @@ namespace Vaper_Api.Controllers
         // ✅ POST: api/VentaPedidos/{id}/NotificarEstado
         // ===========================
         [HttpPost("{id}/NotificarEstado")]
-        public async Task<IActionResult> NotificarEstado(int id)
+        public async Task<IActionResult> NotificarEstado(int id, [FromBody] NotificarEstadoDto dto)
         {
             var pedido = await _context.VentaPedidos
                 .Include(v => v.Usuario)
@@ -222,7 +227,8 @@ namespace Vaper_Api.Controllers
                 nombreCompleto,
                 pedido.Id,
                 estadoNombre,
-                fecha
+                fecha,
+                dto.Guia
             );
 
             if (!enviado)

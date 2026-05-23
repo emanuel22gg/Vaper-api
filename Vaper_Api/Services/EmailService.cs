@@ -1,4 +1,4 @@
-﻿using MailKit.Net.Smtp;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 
@@ -109,7 +109,7 @@ namespace Vaper_Api.Services
             }
         }
 
-        public async Task<(bool Exitoso, string? Error)> EnviarEmailEstadoPedido(string emailDestino, string nombreCompleto, int numeroPedido, string estadoPedido, DateTime fecha)
+        public async Task<(bool Exitoso, string? Error)> EnviarEmailEstadoPedido(string emailDestino, string nombreCompleto, int numeroPedido, string estadoPedido, DateTime fecha, string? guia = null)
         {
             try
             {
@@ -117,6 +117,12 @@ namespace Vaper_Api.Services
                 message.From.Add(new MailboxAddress("Vaper App", _fromEmail));
                 message.To.Add(new MailboxAddress("", emailDestino));
                 message.Subject = $"Actualización de tu pedido #{numeroPedido} - Vaper App";
+
+                string guiaHtml = string.IsNullOrWhiteSpace(guia) ? "" : $@"
+                            <tr>
+                                <td style='padding: 8px; border: 1px solid #ddd; font-weight: bold;'>Número de guía</td>
+                                <td style='padding: 8px; border: 1px solid #ddd;'>{guia}</td>
+                            </tr>";
 
                 message.Body = new TextPart("html")
                 {
@@ -132,7 +138,7 @@ namespace Vaper_Api.Services
                             <tr>
                                 <td style='padding: 8px; border: 1px solid #ddd; font-weight: bold;'>Nuevo estado</td>
                                 <td style='padding: 8px; border: 1px solid #ddd; color: #2196F3;'><strong>{estadoPedido}</strong></td>
-                            </tr>
+                            </tr>{guiaHtml}
                         </table>
                         <br/>
                         <p>Si tienes alguna pregunta sobre tu pedido, no dudes en contactarnos.</p>
