@@ -30,6 +30,7 @@ namespace Vaper_Api.Controllers
             public decimal Total { get; set; }
             public int? Vigencia { get; set; }
             public int? EstadoId { get; set; }
+            public string? NombreEstado { get; set; }
             public decimal? Subtotal { get; set; }
             public decimal? Descuento { get; set; }
         }
@@ -40,7 +41,28 @@ namespace Vaper_Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CotizacionDto>>> GetCotizaciones()
         {
-            var cotizaciones = await _context.Cotizaciones.ToListAsync();
+            var cotizaciones = await _context.Cotizaciones.Include(c => c.Estado).ToListAsync();
+            bool guardadoNecesario = false;
+
+            foreach (var c in cotizaciones)
+            {
+                if (c.EstadoId == 9) // 9 = Vigente
+                {
+                    var vigenciaDias = c.Vigencia ?? 0;
+                    if (c.Fecha.AddDays(vigenciaDias) < DateTime.Now)
+                    {
+                        c.EstadoId = 10; // 10 = Expirada
+                        guardadoNecesario = true;
+                    }
+                }
+            }
+
+            if (guardadoNecesario)
+            {
+                await _context.SaveChangesAsync();
+                // Recargar para obtener el NombreEstado actualizado
+                cotizaciones = await _context.Cotizaciones.Include(c => c.Estado).ToListAsync();
+            }
 
             return cotizaciones.Select(c => new CotizacionDto
             {
@@ -50,6 +72,7 @@ namespace Vaper_Api.Controllers
                 Total = c.Total,
                 Vigencia = c.Vigencia,
                 EstadoId = c.EstadoId,
+                NombreEstado = c.Estado?.NombreEstado,
                 Subtotal = c.Subtotal,
                 Descuento = c.Descuento
             }).ToList();
@@ -61,19 +84,33 @@ namespace Vaper_Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CotizacionDto>> GetCotizacion(int id)
         {
-            var c = await _context.Cotizaciones.FirstOrDefaultAsync(x => x.Id == id);
+            var c = await _context.Cotizaciones.Include(x => x.Estado).FirstOrDefaultAsync(x => x.Id == id);
 
             if (c == null)
                 return NotFound();
 
+            // Validación de expiración individual
+            if (c.EstadoId == 9) // Vigente
+            {
+                var vigenciaDias = c.Vigencia ?? 0;
+                if (c.Fecha.AddDays(vigenciaDias) < DateTime.Now)
+                {
+                    c.EstadoId = 10; // Expirada
+                    await _context.SaveChangesAsync();
+                    // Refrescar entidad para el NombreEstado si es necesario (Entity Framework ya debería trackearlo)
+                    c = await _context.Cotizaciones.Include(x => x.Estado).FirstOrDefaultAsync(x => x.Id == id);
+                }
+            }
+
             return new CotizacionDto
             {
-                Id = c.Id,
+                Id = c!.Id,
                 NombreUsuario = c.NombreUsuario,
                 Fecha = c.Fecha,
                 Total = c.Total,
                 Vigencia = c.Vigencia,
                 EstadoId = c.EstadoId,
+                NombreEstado = c.Estado?.NombreEstado,
                 Subtotal = c.Subtotal,
                 Descuento = c.Descuento
             };
