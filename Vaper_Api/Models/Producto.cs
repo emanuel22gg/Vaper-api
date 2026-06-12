@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +17,9 @@ public partial class Producto
 
     [Column(TypeName = "decimal(10, 2)")]
     public decimal? Precio { get; set; }
+
+    [Column(TypeName = "decimal(10, 2)")]
+    public decimal? PrecioMayorista { get; set; }
 
     public int? Stock { get; set; }
 

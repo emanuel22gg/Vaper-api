@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -10,13 +10,13 @@ namespace Vaper_Api.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "DocumentoUrl",
-                table: "Usuarios",
-                type: "varchar(500)",
-                unicode: false,
-                maxLength: 500,
-                nullable: true);
+            // migrationBuilder.AddColumn<string>(
+            //     name: "DocumentoUrl",
+            //     table: "Usuarios",
+            //     type: "varchar(500)",
+            //     unicode: false,
+            //     maxLength: 500,
+            //     nullable: true);
         }
 
         /// <inheritdoc />

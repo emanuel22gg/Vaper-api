@@ -27,6 +27,7 @@ namespace Vaper_Api.Controllers
             public int Id { get; set; }
             public string? NombreProducto { get; set; }
             public decimal? Precio { get; set; }
+            public decimal? PrecioMayorista { get; set; }
             public int? Stock { get; set; }
             public int? CategoriaId { get; set; }
             // Propiedad que ahora leeremos directamente del producto
@@ -48,6 +49,7 @@ namespace Vaper_Api.Controllers
                 Id = p.Id,
                 NombreProducto = p.NombreProducto,
                 Precio = p.Precio,
+                PrecioMayorista = p.PrecioMayorista,
                 Stock = p.Stock,
                 CategoriaId = p.CategoriaId,
                 Descripcion = p.Descripcion,
@@ -75,6 +77,7 @@ namespace Vaper_Api.Controllers
                 Id = p.Id,
                 NombreProducto = p.NombreProducto,
                 Precio = p.Precio,
+                PrecioMayorista = p.PrecioMayorista,
                 Stock = p.Stock,
                 CategoriaId = p.CategoriaId,
                 Descripcion = p.Descripcion,
@@ -96,6 +99,7 @@ namespace Vaper_Api.Controllers
             {
                 NombreProducto = dto.NombreProducto,
                 Precio = dto.Precio,
+                PrecioMayorista = dto.PrecioMayorista,
                 Stock = dto.Stock,
                 CategoriaId = dto.CategoriaId,
                 Descripcion = dto.Descripcion,
@@ -128,6 +132,7 @@ namespace Vaper_Api.Controllers
             // 2. Mapear/Actualizar propiedades
             producto.NombreProducto = dto.NombreProducto;
             producto.Precio = dto.Precio;
+            producto.PrecioMayorista = dto.PrecioMayorista;
             producto.Stock = dto.Stock;
             producto.CategoriaId = dto.CategoriaId;
             producto.Descripcion = dto.Descripcion;
