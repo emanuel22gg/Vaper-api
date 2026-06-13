@@ -25,6 +25,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ? HABILITAR COMPRESIÓN PARA SOMEE
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
+
 // ? TU BASE DE DATOS
 builder.Services.AddDbContext<VaperContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -43,6 +49,10 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
 }
+
+// ? ACTIVAR COMPRESIÓN (Debe ir antes del ruteo/autorización)
+app.UseResponseCompression();
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
